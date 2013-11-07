@@ -6,7 +6,7 @@ part of akismet;
 class Author {
 
   /**
-   * Creates a new comment [Author].
+   * Creates a new [Author].
    */
   Author();
 
