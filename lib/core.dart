@@ -1,8 +1,8 @@
 /**
  * Prevent comment spam using [Akismet](https://akismet.com) service.
  */
-library akismet;
+library akismet.core;
 
 part 'src/author.dart';
-//part 'src/comment.dart';
-//part 'src/service.dart';
+// TODO: part 'src/client.dart';
+part 'src/comment.dart';
