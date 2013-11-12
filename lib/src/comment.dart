@@ -1,18 +1,12 @@
 part of akismet.core;
 
-/**
- * Represents a comment submitted by an [Author].
- */
+/// Represents a comment submitted by an [Author].
 class Comment {
 
-  /**
-   * Creates a new [Comment] with the specified content and [Author].
-   */
+  /// Creates a new [Comment] with the specified content and [Author].
   Comment([ this.content, this.author ]);
 
-  /**
-   * Creates a new [Comment] from the specified [map] in JSON format.
-   */
+  /// Creates a new [Comment] from the specified [Map] in JSON format.
   Comment.fromJson(Map<String, dynamic> map) {
     assert(map!=null);
 
@@ -39,9 +33,7 @@ class Comment {
   /// This string value specifies a [CommentType] canonical value or a made up value like "registration".
   String type;
 
-  /**
-   * Converts this object to a [Map] in JSON format.
-   */
+  /// Converts this object to a [Map] in JSON format.
   Map<String, dynamic> toJson() {
     var map={};
 
@@ -54,16 +46,12 @@ class Comment {
     return map;
   }
 
-  /**
-   * Returns a string representation of this object.
-   */
+  /// Returns a string representation of this object.
   @override
   String toString() => 'Comment ${toJson()}';
 }
 
-/**
- * Canonical values defining the type of a [Comment].
- */
+/// Canonical values defining the type of a [Comment].
 abstract class CommentType {
 
   /// Specifies a standard comment.

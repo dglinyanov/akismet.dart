@@ -1,18 +1,12 @@
 part of akismet.core;
 
-/**
- * Represents the author of a [Comment].
- */
+/// Represents the author of a [Comment].
 class Author {
 
-  /**
-   * Creates a new [Author] with the specified name and mail address.
-   */
+  /// Creates a new [Author] with the specified name and mail address.
   Author([ this.name, this.email ]);
 
-  /**
-   * Creates a new [Author] from the specified [map] in JSON format.
-   */
+  /// Creates a new [Author] from the specified [Map] in JSON format.
   Author.fromJson(Map<String, dynamic> map) {
     assert(map!=null);
 
@@ -38,9 +32,7 @@ class Author {
   /// The author's user agent, that is the string identifying the Web browser used to submit comments.
   String userAgent;
 
-  /**
-   * Converts this object to a [Map] in JSON format.
-   */
+  /// Converts this object to a [Map] in JSON format.
   Map<String, dynamic> toJson() {
     var map={};
 
@@ -53,9 +45,7 @@ class Author {
     return map;
   }
 
-  /**
-   * Returns a string representation of this object.
-   */
+  /// Returns a string representation of this object.
   @override
   String toString() => 'Author ${toJson()}';
 }
