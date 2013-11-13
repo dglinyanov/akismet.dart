@@ -51,15 +51,15 @@ class Comment {
   String toString() => 'Comment ${toJson()}';
 }
 
-/// Canonical values defining the type of a [Comment].
+/// Specifies the type of a [Comment].
 abstract class CommentType {
 
-  /// Specifies a standard comment.
+  /// A standard comment.
   static const String COMMENT='comment';
 
-  /// Specifies a [pingback](https://en.wikipedia.org/wiki/Pingback) comment.
+  /// A [pingback](https://en.wikipedia.org/wiki/Pingback) comment.
   static const String PINGBACK='pingback';
 
-  /// Specifies a [trackback](https://en.wikipedia.org/wiki/Trackback) comment.
+  /// A [trackback](https://en.wikipedia.org/wiki/Trackback) comment.
   static const String TRACKBACK='trackback';
 }
