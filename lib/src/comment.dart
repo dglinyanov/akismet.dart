@@ -10,11 +10,11 @@ class Comment {
   Comment.fromJson(Map<String, dynamic> map) {
     assert(map!=null);
 
-    if(map['author'] is Map) author=new Author.fromJson(map['author']);
-    if(map['content']!=null) content=map['content'].toString();
+    if(map.keys.any((key) => key.startsWith('comment_author') || key.startsWith('user'))) author=new Author.fromJson(map);
+    if(map['comment_content']!=null) content=map['comment_content'].toString();
+    if(map['comment_type']!=null) type=map['comment_type'].toString();
     if(map['permalink']!=null) permalink=Uri.parse(map['permalink'].toString());
     if(map['referrer']!=null) referrer=Uri.parse(map['referrer'].toString());
-    if(map['type']!=null) type=map['type'].toString();
   }
 
   /// The comment's author.
@@ -30,18 +30,18 @@ class Comment {
   Uri referrer;
 
   /// The comment's type.
-  /// This string value specifies a [CommentType] canonical value or a made up value like "registration".
+  /// This string value specifies a [CommentType] constant or a made up value like "registration".
   String type;
 
   /// Converts this object to a [Map] in JSON format.
   Map<String, dynamic> toJson() {
     var map={};
 
-    if(author!=null) map['author']=author;
-    if(content!=null) map['content']=content;
+    if(author!=null) map.addAll(author.toJson());
+    if(content!=null) map['comment_content']=content;
+    if(type!=null) map['comment_type']=type;
     if(permalink!=null) map['permalink']=permalink.toString();
     if(referrer!=null) map['referrer']=referrer.toString();
-    if(type!=null) map['type']=type;
 
     return map;
   }

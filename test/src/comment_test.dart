@@ -17,12 +17,14 @@ class CommentTest {
     expect(comment.author, isNull);
     expect(comment.content, isNull);
     expect(comment.referrer, isNull);
+    expect(comment.type, isNull);
 
-    comment=new Comment.fromJson(JSON.decode('{ "author": { "name": "Cédric Belin" }, "content": "A user comment.", "referrer": "http://belin.io" }'));
+    comment=new Comment.fromJson(JSON.decode('{ "comment_author": "Cédric Belin", "comment_content": "A user comment.", "comment_type": "trackback", "referrer": "http://belin.io" }'));
     expect(comment.author, new isInstanceOf<Author>());
     expect(comment.author.name, equals('Cédric Belin'));
     expect(comment.content, equals('A user comment.'));
     expect(comment.referrer, equals(Uri.parse('http://belin.io')));
+    expect(comment.type, equals(CommentType.TRACKBACK));
   }
 
   /// Tests the [Comment.toJson] method.
@@ -31,8 +33,9 @@ class CommentTest {
     expect(JSON.encode(comment), equals('{}'));
 
     comment=new Comment('A user comment.', new Author('Cédric Belin'))
-      ..referrer=Uri.parse('http://belin.io');
+      ..referrer=Uri.parse('http://belin.io')
+      ..type=CommentType.PINGBACK;
 
-    expect(JSON.encode(comment), equals('{"author":{"name":"Cédric Belin"},"content":"A user comment.","referrer":"http://belin.io"}'));
+    expect(JSON.encode(comment), equals('{"comment_author":"Cédric Belin","comment_content":"A user comment.","comment_type":"pingback","referrer":"http://belin.io"}'));
   }
 }

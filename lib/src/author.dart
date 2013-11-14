@@ -10,11 +10,11 @@ class Author {
   Author.fromJson(Map<String, dynamic> map) {
     assert(map!=null);
 
-    if(map['email']!=null) email=map['email'].toString();
-    if(map['ipAddress']!=null) ipAddress=map['ipAddress'].toString();
-    if(map['name']!=null) name=map['name'].toString();
-    if(map['url']!=null) url=Uri.parse(map['url'].toString());
-    if(map['userAgent']!=null) userAgent=map['userAgent'].toString();
+    if(map['comment_author']!=null) name=map['comment_author'].toString();
+    if(map['comment_author_email']!=null) email=map['comment_author_email'].toString();
+    if(map['comment_author_url']!=null) url=Uri.parse(map['comment_author_url'].toString());
+    if(map['user_agent']!=null) userAgent=map['user_agent'].toString();
+    if(map['user_ip']!=null) ipAddress=map['user_ip'].toString();
   }
 
   /// The author's mail address.
@@ -36,11 +36,11 @@ class Author {
   Map<String, dynamic> toJson() {
     var map={};
 
-    if(email!=null) map['email']=email;
-    if(ipAddress!=null) map['ipAddress']=ipAddress;
-    if(name!=null) map['name']=name;
-    if(url!=null) map['url']=url.toString();
-    if(userAgent!=null) map['userAgent']=userAgent;
+    if(name!=null) map['comment_author']=name;
+    if(email!=null) map['comment_author_email']=email;
+    if(url!=null) map['comment_author_url']=url.toString();
+    if(userAgent!=null) map['user_agent']=userAgent;
+    if(ipAddress!=null) map['user_ip']=ipAddress;
 
     return map;
   }
