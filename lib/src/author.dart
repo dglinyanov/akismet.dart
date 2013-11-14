@@ -3,18 +3,18 @@ part of akismet.core;
 /// Represents the author of a [Comment].
 class Author {
 
-  /// Creates a new [Author] with the specified name and mail address.
+  /// Creates a new [Author] with the specified [name] and [email] address.
   Author([ this.name, this.email ]);
 
-  /// Creates a new [Author] from the specified [Map] in JSON format.
-  Author.fromJson(Map<String, dynamic> map) {
+  /// Creates a new [Author] from the specified [map] in JSON format.
+  Author.fromJson(Map<String, String> map) {
     assert(map!=null);
 
-    if(map['comment_author']!=null) name=map['comment_author'].toString();
-    if(map['comment_author_email']!=null) email=map['comment_author_email'].toString();
-    if(map['comment_author_url']!=null) url=Uri.parse(map['comment_author_url'].toString());
-    if(map['user_agent']!=null) userAgent=map['user_agent'].toString();
-    if(map['user_ip']!=null) ipAddress=map['user_ip'].toString();
+    if(map['comment_author']!=null) name=map['comment_author'];
+    if(map['comment_author_email']!=null) email=map['comment_author_email'];
+    if(map['comment_author_url']!=null) url=Uri.parse(map['comment_author_url']);
+    if(map['user_agent']!=null) userAgent=map['user_agent'];
+    if(map['user_ip']!=null) ipAddress=map['user_ip'];
   }
 
   /// The author's mail address.
@@ -33,7 +33,7 @@ class Author {
   String userAgent;
 
   /// Converts this object to a [Map] in JSON format.
-  Map<String, dynamic> toJson() {
+  Map<String, String> toJson() {
     var map={};
 
     if(name!=null) map['comment_author']=name;

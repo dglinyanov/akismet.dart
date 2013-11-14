@@ -3,18 +3,18 @@ part of akismet.core;
 /// Represents a comment submitted by an [Author].
 class Comment {
 
-  /// Creates a new [Comment] with the specified content and [Author].
+  /// Creates a new [Comment] with the specified [content] and [author].
   Comment([ this.content, this.author ]);
 
-  /// Creates a new [Comment] from the specified [Map] in JSON format.
-  Comment.fromJson(Map<String, dynamic> map) {
+  /// Creates a new [Comment] from the specified [map] in JSON format.
+  Comment.fromJson(Map<String, String> map) {
     assert(map!=null);
 
     if(map.keys.any((key) => key.startsWith('comment_author') || key.startsWith('user'))) author=new Author.fromJson(map);
-    if(map['comment_content']!=null) content=map['comment_content'].toString();
-    if(map['comment_type']!=null) type=map['comment_type'].toString();
-    if(map['permalink']!=null) permalink=Uri.parse(map['permalink'].toString());
-    if(map['referrer']!=null) referrer=Uri.parse(map['referrer'].toString());
+    if(map['comment_content']!=null) content=map['comment_content'];
+    if(map['comment_type']!=null) type=map['comment_type'];
+    if(map['permalink']!=null) permalink=Uri.parse(map['permalink']);
+    if(map['referrer']!=null) referrer=Uri.parse(map['referrer']);
   }
 
   /// The comment's author.
@@ -34,7 +34,7 @@ class Comment {
   String type;
 
   /// Converts this object to a [Map] in JSON format.
-  Map<String, dynamic> toJson() {
+  Map<String, String> toJson() {
     var map={};
 
     if(author!=null) map.addAll(author.toJson());

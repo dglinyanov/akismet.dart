@@ -1,4 +1,4 @@
-part of akismet.tests;
+part of akismet.tests.core;
 
 /// Tests the features of [Comment] class.
 class CommentTest {

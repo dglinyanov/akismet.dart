@@ -2,7 +2,6 @@
 library akismet.core;
 
 import 'dart:async';
-import 'dart:convert';
 
 part 'src/author.dart';
 part 'src/client.dart';
