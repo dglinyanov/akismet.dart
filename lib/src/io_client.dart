@@ -65,7 +65,7 @@ class Client extends core.Client {
       path: '/1.1/verify-key'
     );
 
-    return _queryService(endPoint, { 'blog': blog.toString(), 'key': apiKey }).then((result) => result=='valid');
+    return _queryService(endPoint, { 'key': apiKey }).then((result) => result=='valid');
   }
 
   /// Queries the service database and returns the response as a [String].
@@ -75,6 +75,7 @@ class Client extends core.Client {
       HttpHeaders.USER_AGENT: userAgent
     };
 
+    fields['blog']=blog.toString();
     return http.post(endPoint, fields: fields, headers: headers).then((response) {
       if(response.headers.containsKey('x-akismet-debug-help'))
         throw new HttpException(response.headers['x-akismet-debug-help'], uri: endPoint);
