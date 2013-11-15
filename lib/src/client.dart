@@ -32,6 +32,6 @@ abstract class Client {
   @override
   String toString() => 'Client { apiKey: "$apiKey", blog: Uri($blog), userAgent: "$userAgent" }';
 
-  /// Checks against the service database whether [apiKey] is a valid API key.
+  /// Checks the [apiKey] against the service database, and returns a value indicating whether it is a valid API key.
   Future<bool> verifyKey();
 }
