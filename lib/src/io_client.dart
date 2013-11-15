@@ -57,7 +57,7 @@ class Client extends core.Client {
     return _queryService(endPoint, comment.toJson());
   }
 
-  /// Checks against the service database whether [apiKey] is a valid API key.
+  /// Checks the [apiKey] against the service database, and returns a value indicating whether it is a valid API key.
   Future<bool> verifyKey() {
     var endPoint=new Uri(
       scheme: secureRequests ? 'https' : 'http',
@@ -75,23 +75,10 @@ class Client extends core.Client {
       HttpHeaders.USER_AGENT: userAgent
     };
 
-    /*
-    print('URL: $endPoint');
-    print('Headers: $headers');
-    print('Body: $fields');
-
-    fields['is_test']='1';
-    */
-
     return http.post(endPoint, fields: fields, headers: headers).then((response) {
-      if(response.headers.containsKey('x-akismet-debug-help')) throw new HttpException(response.headers['x-akismet-debug-help'], uri: endPoint);
-      /*
-      print(response.request.headers);
-      print(response.headers);
-      print(response.reasonPhrase);
-      print(response.statusCode);
-      print(response.body);
-      */
+      if(response.headers.containsKey('x-akismet-debug-help'))
+        throw new HttpException(response.headers['x-akismet-debug-help'], uri: endPoint);
+
       return response.body;
     });
   }

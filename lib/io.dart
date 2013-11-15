@@ -8,6 +8,5 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 
-// TODO ? export 'core.dart' show Author, Comment;
-
+export 'core.dart' hide Client;
 part 'src/io_client.dart';

@@ -11,7 +11,6 @@ part 'src/comment_test.dart';
 /// Runs the unit tests.
 void main() {
   groupSep='.';
-
   new AuthorTest().run();
   new CommentTest().run();
 }

@@ -20,7 +20,7 @@ class CommentTest {
     expect(comment.type, isNull);
 
     comment=new Comment.fromJson(JSON.decode('{ "comment_author": "Cédric Belin", "comment_content": "A user comment.", "comment_type": "trackback", "referrer": "http://belin.io" }'));
-    expect(comment.author, new isInstanceOf<Author>());
+    expect(comment.author, new isInstanceOf<Author>('Author'));
     expect(comment.author.name, equals('Cédric Belin'));
     expect(comment.content, equals('A user comment.'));
     expect(comment.referrer, equals(Uri.parse('http://belin.io')));

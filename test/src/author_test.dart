@@ -28,9 +28,9 @@ class AuthorTest {
     expect(JSON.encode(author), equals('{}'));
 
     author=new Author('Cédric Belin', 'cedric@belin.io')
-      ..ipAddress='88.174.21.31'
+      ..ipAddress='127.0.0.1'
       ..url=Uri.parse('http://belin.io');
 
-    expect(JSON.encode(author), equals('{"comment_author":"Cédric Belin","comment_author_email":"cedric@belin.io","comment_author_url":"http://belin.io","user_ip":"88.174.21.31"}'));
+    expect(JSON.encode(author), equals('{"comment_author":"Cédric Belin","comment_author_email":"cedric@belin.io","comment_author_url":"http://belin.io","user_ip":"127.0.0.1"}'));
   }
 }
