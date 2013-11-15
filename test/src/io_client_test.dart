@@ -6,67 +6,55 @@ class ClientTest {
   /// The client used to query the service database.
   Client _client;
 
-  /// Runs the unit tests.
-  void run() {
+  /// A comment with content marked as ham.
+  Comment _ham;
+
+  /// A comment with content marked as spam.
+  Comment _spam;
+
+  /// Runs the unit tests using the specified Akismet API key.
+  void run(String apiKey) {
     setUp(() {
-      _client=new Client('8b8d8d8c375d', 'http://your.url.here.com');
+      _client=new Client(apiKey, 'https://github.com/cedx/akismet.dart');
+
+      var author=new Author('Akismet.dart')
+        ..ipAddress='192.168.0.1'
+        ..url=Uri.parse('https://github.com/cedx')
+        ..userAgent='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9) AppleWebKit/537.71 (KHTML, like Gecko) Version/7.0 Safari/537.71';
+
+      _ham=new Comment('I\'m testing out the Service API.', author)
+        ..referrer=Uri.parse('https://pub.dartlang.org/packages/akismet')
+        ..type=CommentType.COMMENT;
+
+      author=new Author('viagra-test-123')
+        ..ipAddress='127.0.0.1'
+        ..userAgent='Spam Bot/6.6.6';
+
+      _spam=new Comment('Spam!', author)..type=CommentType.TRACKBACK;
     });
 
     group('Client', () {
-      skip_test('checkComment()', testCheckComment); // TODO: uncomment this test when it will be reliable
+      test('verifyKey()', testVerifyKey);
+      test('checkComment()', testCheckComment);
       test('submitHam()', testSubmitHam);
       test('submitSpam()', testSubmitSpam);
-      test('verifyKey()', testVerifyKey);
     });
   }
 
   /// Tests the [Client.checkComment] method.
   void testCheckComment() {
-    var author=new Author('Cédric Belin')
-      ..ipAddress='127.0.0.1'
-      ..userAgent='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9) AppleWebKit/537.71 (KHTML, like Gecko) Version/7.0 Safari/537.71';
-
-    var comment=new Comment('Hey, I\'m testing out the Service API!', author)
-      ..type=CommentType.COMMENT;
-
-    expect(_client.checkComment(comment), completion(isFalse));
-
-    author=new Author('viagra-test-123', 'viagra-test-123@fake-url.com')
-      ..ipAddress='147.202.45.202'
-      ..url=Uri.parse('http://fake-url.com')
-      ..userAgent='Spam Bot/6.6.6';
-
-    var content='VIAGRA SPAM You check this posts everyday incase <a href="http://fake-url.com">find someone</a> needs some help?';
-    comment=new Comment(content, author)
-      ..type=CommentType.COMMENT;
-
-    expect(_client.checkComment(comment), completion(isTrue));
+    // expect(_client.checkComment(_ham), completion(isFalse));
+    expect(_client.checkComment(_spam), completion(isTrue));
   }
 
   /// Tests the [Client.submitHam] method.
   void testSubmitHam() {
-    var author=new Author('Cédric Belin')
-      ..ipAddress='127.0.0.1'
-      ..userAgent='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9) AppleWebKit/537.71 (KHTML, like Gecko) Version/7.0 Safari/537.71';
-
-    var comment=new Comment('Hey, I\'m testing out the Service API!', author)
-      ..type=CommentType.COMMENT;
-
-    expect(_client.submitHam(comment), completes);
+    expect(_client.submitHam(_ham), completes);
   }
 
   /// Tests the [Client.submitSpam] method.
   void testSubmitSpam() {
-    var author=new Author('viagra-test-123', 'viagra-test-123@fake-url.com')
-      ..ipAddress='147.202.45.202'
-      ..url=Uri.parse('http://fake-url.com')
-      ..userAgent='Spam Bot/6.6.6';
-
-    var content='VIAGRA SPAM You check this posts everyday incase <a href="http://fake-url.com">find someone</a> needs some help?';
-    var comment=new Comment(content, author)
-      ..type=CommentType.COMMENT;
-
-    expect(_client.submitSpam(comment), completes);
+    expect(_client.submitSpam(_spam), completes);
   }
 
   /// Tests the [Client.verifyKey] method.

@@ -28,10 +28,10 @@ abstract class Client {
   /// Submits the specified [comment] that was not marked as spam but should have been.
   Future submitSpam(Comment comment);
 
-  /// Checks against the service database whether [apiKey] is a valid API key.
-  Future<bool> verifyKey();
-
   /// Returns a string representation of this object.
   @override
   String toString() => 'Client { apiKey: "$apiKey", blog: Uri($blog), userAgent: "$userAgent" }';
+
+  /// Checks against the service database whether [apiKey] is a valid API key.
+  Future<bool> verifyKey();
 }
