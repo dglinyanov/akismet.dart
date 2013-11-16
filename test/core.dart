@@ -6,6 +6,7 @@ import 'package:akismet/core.dart';
 import 'package:unittest/unittest.dart';
 
 part 'src/author_test.dart';
+part 'src/client_test.dart';
 part 'src/comment_test.dart';
 
 /// Runs the unit tests.
