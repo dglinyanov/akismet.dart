@@ -7,7 +7,6 @@ import 'dart:async';
 import 'dart:io';
 import 'package:args/args.dart';
 import 'package:path/path.dart' as path;
-import 'package:unittest/vm_config.dart';
 import 'test/io.dart' as unitTests;
 
 /// Object used to parse command line argments.
@@ -134,7 +133,6 @@ void scripts() {
 /// Runs the unit tests using the specified Akismet API key.
 void tests(String apiKey) {
   print('Running the unit tests...');
-  useVMConfiguration();
   unitTests.main([ apiKey ]);
 }
 
