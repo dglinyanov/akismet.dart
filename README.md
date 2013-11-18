@@ -2,12 +2,15 @@
 Prevent comment spam using [Akismet](https://akismet.com) service, in [Dart](https://www.dartlang.org).
 	
 ## Features
-* [Key verification](https://akismet.com/development/api/#verify-key): checks an API key against the service database, and gets a value indicating whether it is valid.
-* [Comment check](https://akismet.com/development/api/#comment-check): checks a comment against the service database, and gets a value indicating whether it is spam.
+* [Key verification](https://akismet.com/development/api/#verify-key): checks an Akismet API key and gets a value indicating whether it is valid.
+* [Comment check](https://akismet.com/development/api/#comment-check): checks a comment and gets a value indicating whether it is spam.
 * [Submit spam](https://akismet.com/development/api/#submit-spam): submits a comment that was incorrectly marked as spam but should not have been.
 * [Submit ham](https://akismet.com/development/api/#submit-ham): submits a comment that was not marked as spam but should have been.
 
-## Installing via [Pub](http://pub.dartlang.org)
+## Documentation
+* [API Reference](http://cedx.github.io/akismet.dart/api)
+
+## Installing via [Pub](https://pub.dartlang.org)
 
 ### 1. Depend on it
 Add this to your package's `pubspec.yaml` file:
@@ -25,7 +28,7 @@ Or if you want to install from the command line, run:
 	$ pub get
 	
 ### 3. Import it
-Now in your Dart code, you can use one of the three following statements:
+Now in your Dart code, you can use:
 
 	import 'package:akismet/io.dart';
 
@@ -58,5 +61,5 @@ Now in your Dart code, you can use one of the three following statements:
     });
 
 ## License
-[Akismet.dart](https://github.com/cedx/akismet.dart) is distributed under the MIT License.
+[Akismet.dart](https://pub.dartlang.org/packages/akismet) is distributed under the MIT License.
 
