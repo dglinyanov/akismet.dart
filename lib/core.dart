@@ -10,4 +10,4 @@ part 'src/comment.dart';
 part 'src/end_points.dart';
 
 /// The version of the current package.
-const String VERSION='0.1.0';
+const String VERSION='0.1.1';
