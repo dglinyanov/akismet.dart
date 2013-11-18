@@ -25,7 +25,7 @@ class Client extends core.Client {
     var endPoint=new Uri(
       scheme: secureRequests ? 'https' : 'http',
       host: '$apiKey.rest.akismet.com',
-      path: '/1.1/comment-check'
+      path: core.EndPoints.checkComment.toString()
     );
 
     return _queryService(endPoint, comment.toJson()).then((result) => result=='true');
@@ -38,7 +38,7 @@ class Client extends core.Client {
     var endPoint=new Uri(
       scheme: secureRequests ? 'https' : 'http',
       host: '$apiKey.rest.akismet.com',
-      path: '/1.1/submit-spam'
+      path: core.EndPoints.submitHam.toString()
     );
 
     return _queryService(endPoint, comment.toJson());
@@ -51,7 +51,7 @@ class Client extends core.Client {
     var endPoint=new Uri(
       scheme: secureRequests ? 'https' : 'http',
       host: '$apiKey.rest.akismet.com',
-      path: '/1.1/submit-ham'
+      path: core.EndPoints.submitSpam.toString()
     );
 
     return _queryService(endPoint, comment.toJson());
@@ -62,7 +62,7 @@ class Client extends core.Client {
     var endPoint=new Uri(
       scheme: secureRequests ? 'https' : 'http',
       host: 'rest.akismet.com',
-      path: '/1.1/verify-key'
+      path: core.EndPoints.verifyKey.toString()
     );
 
     return _queryService(endPoint, { 'key': apiKey }).then((result) => result=='valid');
