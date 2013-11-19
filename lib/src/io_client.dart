@@ -4,8 +4,7 @@ part of akismet.io;
 class Client extends core.Client {
 
   /// Creates a new [Client] with the specified Akismet [apiKey] and [blog] URL.
-  /// The [blog] URL can be specified as a [Uri] or a [String].
-  Client(String apiKey, blog): super(apiKey, blog is Uri ? blog : Uri.parse(blog)) {
+  Client(String apiKey, blog): super(apiKey, blog) {
     var dartVersion=Platform.version.split('.').take(3).join('.');
     userAgent='Dart/$dartVersion | Akismet/${core.VERSION}';
   }
@@ -71,12 +70,14 @@ class Client extends core.Client {
   /// Queries the service by posting the specified [fields] to a given [endPoint], and returns the response as a [String].
   /// Throws a [HttpException] if the remote service returned an error message.
   Future<String> _queryService(Uri endPoint, Map<String, String> fields) {
+    assert(fields!=null);
+    fields['blog']=blog.toString();
+
     var headers={
       HttpHeaders.CONTENT_TYPE: 'application/x-www-form-urlencoded; charset=${encoding.name}',
       HttpHeaders.USER_AGENT: userAgent
     };
 
-    fields['blog']=blog.toString();
     return http.post(endPoint, fields: fields, headers: headers).then((response) {
       if(response.headers.containsKey('x-akismet-debug-help'))
         throw new HttpException(response.headers['x-akismet-debug-help'], uri: endPoint);

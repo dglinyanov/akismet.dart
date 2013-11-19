@@ -28,7 +28,7 @@ final String _root=path.normalize(path.absolute(path.dirname(Platform.script.toF
 void clean() {
   print('Cleaning the package...');
 
-  List directories=[
+  var directories=[
     '$_root/doc/api'
   ];
 
@@ -42,7 +42,7 @@ void clean() {
     });
   }
 
-  List files=[
+  var files=[
     '$_root/pubspec.lock',
     '$_root/test/html.dart.js',
     '$_root/test/html.dart.js.deps',
@@ -65,7 +65,7 @@ void clean() {
 void docs() {
   print('Generating the API reference...');
 
-  List args=[
+  var args=[
     '--include-lib=akismet.core,akismet.io',
     '--link-api',
     '--package-root=$_root/packages',
@@ -73,7 +73,7 @@ void docs() {
     '--out=$_root/doc/api'
   ];
 
-  List entryPoints=[
+  var entryPoints=[
     '$_root/lib/io.dart'
   ];
 
@@ -83,8 +83,8 @@ void docs() {
 
 /// Prints the usage information.
 void help() {
-  String script=path.basename(Platform.script.toFilePath());
-  StringBuffer buffer=new StringBuffer()
+  var script=path.basename(Platform.script.toFilePath());
+  var buffer=new StringBuffer()
     ..writeln('Dart build system.')
     ..writeln()
     ..writeln('Usage:')
@@ -121,8 +121,8 @@ void main(List<String> arguments) {
 void scripts() {
   print('Generating the client scripts...');
 
-  String entryPoint='$_root/test/html.dart';
-  String script=path.basename(entryPoint);
+  var entryPoint='$_root/test/html.dart';
+  var script=path.basename(entryPoint);
   _run('dart2js', [
       '--out=$_root/test/$script.js',
       '--package-root=$_root/packages',
@@ -139,14 +139,14 @@ void tests(String apiKey) {
 /// Runs a [command] with the specified [options].
 /// Returns a [Future] that completes when the command completes.
 Future _run(String command, [ List<String> options ]) {
-  Completer completer=new Completer();
-  List arguments=[ command ];
+  var completer=new Completer();
+  var arguments=[ command ];
   if(options!=null) arguments.addAll(options);
 
   print('Run: ${arguments.join(' ')}');
   Process
     .start('/usr/bin/env', arguments)
-    .then((Process process) {
+    .then((process) {
       process.stdout.pipe(stdout);
       process.stderr.pipe(stderr);
       process.exitCode.then((_) {

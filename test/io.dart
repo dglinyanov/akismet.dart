@@ -16,5 +16,6 @@ void main(List<String> arguments) {
   }
 
   core.main();
-  new core.ClientTest(new Client(arguments.first, 'https://github.com/cedx/akismet.dart')).run();
+  var client=new Client(arguments.first, Uri.parse('https://github.com/cedx/akismet.dart'));
+  new core.ClientTest(client).run();
 }
