@@ -2,6 +2,7 @@
 library akismet.tests.core;
 
 import 'dart:convert';
+import 'dart:mirrors';
 import 'package:akismet/core.dart';
 import 'package:unittest/unittest.dart';
 

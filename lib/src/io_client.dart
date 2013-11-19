@@ -68,7 +68,8 @@ class Client extends core.Client {
     return _queryService(endPoint, { 'key': apiKey }).then((result) => result=='valid');
   }
 
-  /// Queries the service database and returns the response as a [String].
+  /// Queries the service by posting the specified [fields] to a given [endPoint], and returns the response as a [String].
+  /// Throws a [HttpException] if the remote service returned an error message.
   Future<String> _queryService(Uri endPoint, Map<String, String> fields) {
     var headers={
       HttpHeaders.CONTENT_TYPE: 'application/x-www-form-urlencoded; charset=${encoding.name}',
