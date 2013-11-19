@@ -5,10 +5,8 @@ class Client extends core.Client {
 
   /// Creates a new [Client] with the specified Akismet [apiKey] and [blog] URL.
   /// The remote service queried by this client is located at the specified [serviceUrl], which defaults to `http://127.0.0.1:3000`.
-  /// The [blog] and [serviceUrl] URLs can be specified as a [Uri] or a [String].
-  Client(String apiKey, blog, { serviceUrl: 'http://127.0.0.1:3000' }): super(apiKey, blog is Uri ? blog : Uri.parse(blog)) {
-    assert(serviceUrl!=null);
-    this.serviceUrl=(serviceUrl is Uri ? serviceUrl : Uri.parse(serviceUrl));
+  Client(String apiKey, blog, { this.serviceUrl }): super(apiKey, blog) {
+    if(serviceUrl==null) serviceUrl=Uri.parse('http://127.0.0.1:3000');
     this.userAgent='Dart/0.0.0 | Akismet/${core.VERSION}';
   }
 
@@ -61,12 +59,14 @@ class Client extends core.Client {
   /// Queries the service by posting the specified [fields] to a given [endPoint], and returns the response as a [String].
   /// Throws a [HttpException] if the remote service returned an error message.
   Future<String> _queryService(Uri endPoint, Map<String, String> fields) {
+    assert(fields!=null);
     fields['blog']=blog.toString();
     fields['key']=apiKey;
 
     var headers={
-      'Content-Type': 'application/x-www-form-urlencoded; charset=${encoding.name}',
-      'X-User-Agent': userAgent
+      HttpHeaders.CONTENT_TYPE: 'application/x-www-form-urlencoded; charset=${encoding.name}',
+      //HttpHeaders.X_REQUESTED_WITH: 'XMLHttpRequest',
+      HttpHeaders.USER_AGENT: userAgent
     };
 
     return HttpRequest.postFormData(endPoint.toString(), fields, requestHeaders: headers).then((request) {
@@ -104,4 +104,18 @@ class HttpException implements Exception {
   /// Returns a string representation of this object.
   @override
   String toString() => 'HttpException { message: "$message", uri: Uri($uri) }';
+}
+
+/// Provides common HTTP headers as defined in [RFC 2616](http://www.w3.org/Protocols/rfc2616/rfc2616.html).
+abstract class HttpHeaders {
+
+  /// Value of the [Content-Type](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17) HTTP header.
+  static const String CONTENT_TYPE='content-type';
+
+  /// Value of the [User-Agent](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.43) HTTP header.
+  /// Browsers don't allow to modify the user agent string. So this constant specifies the custom value `X-User-Agent`.
+  static const String USER_AGENT='x-user-agent';
+
+  /// Value of the [X-Requested-With](http://en.wikipedia.org/wiki/List_of_HTTP_header_fields#Common_non-standard_request_headers) HTTP header.
+  static const String X_REQUESTED_WITH='x-requested-with';
 }
