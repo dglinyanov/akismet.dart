@@ -34,15 +34,15 @@ class ClientTest {
   void run() {
     group('Client', () {
       test('verifyKey()', testVerifyKey);
-      test('checkComment()', testCheckComment);
       test('submitHam()', testSubmitHam);
       test('submitSpam()', testSubmitSpam);
+      test('checkComment()', testCheckComment);
     });
   }
 
   /// Tests the [Client.checkComment] method.
   void testCheckComment() {
-    // expect(_client.checkComment(_ham), completion(isFalse));
+    expect(_client.checkComment(_ham), completion(isFalse));
     expect(_client.checkComment(_spam), completion(isTrue));
   }
 
@@ -59,7 +59,14 @@ class ClientTest {
   /// Tests the [Client.verifyKey] method.
   void testVerifyKey() {
     expect(_client.verifyKey(), completion(isTrue));
-    // TODO: expect(new Client('viagra-test-123', 'http://fake-url.com').verifyKey(), completion(isFalse));
-    // TODO: expect(new Client('', '').verifyKey(), throws);
+
+    var defaultConstructor=const Symbol('');
+    var mirror=reflect(_client).type;
+
+    Client client=mirror.newInstance(defaultConstructor, [ 'viagra-test-123', 'http://fake-url.com' ]).reflectee;
+    expect(client.verifyKey(), completion(isFalse));
+
+    client=mirror.newInstance(defaultConstructor, [ '', '' ]).reflectee;
+    expect(client.verifyKey(), throws);
   }
 }
