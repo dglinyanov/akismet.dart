@@ -4,15 +4,11 @@ part of akismet.html;
 class Client extends core.Client {
 
   /// Creates a new [Client] with the specified Akismet [apiKey] and [blog] URL.
-  /// The remote service queried by this client is located at the specified [serviceUrl], which defaults to `http://127.0.0.1:3000`.
-  Client(String apiKey, blog, { this.serviceUrl }): super(apiKey, blog) {
-    if(serviceUrl==null) serviceUrl=Uri.parse('http://127.0.0.1:3000');
+  /// The remote service queried by this client is located at the specified [serviceUrl], which defaults to `http://localhost:8080`.
+  Client(String apiKey, Uri blog, { this.serviceUrl }): super(apiKey, blog) {
+    if(serviceUrl==null) serviceUrl=Uri.parse('http://localhost:8080');
     this.userAgent='Dart/0.0.0 | Akismet/${core.VERSION}';
   }
-
-  /// The [Encoding] used when querying the remote service.
-  /// Defaults to [UTF8].
-  Encoding encoding=UTF8;
 
   /// The [Uri] of the remote service.
   Uri serviceUrl;
@@ -20,39 +16,27 @@ class Client extends core.Client {
   /// Checks the specified [comment] against the service database, and returns a value indicating whether it is spam.
   Future<bool> checkComment(core.Comment comment) {
     assert(comment!=null);
-    var endPoint=Uri.parse('${serviceUrl}${core.EndPoints.checkComment}');
-    print(endPoint);
-    endPoint=serviceUrl.resolve(core.EndPoints.checkComment.toString());
-    print(endPoint);
+    var endPoint=serviceUrl.resolve(core.EndPoints.checkComment.toString());
     return _queryService(endPoint, comment.toJson()).then((result) => result=='true');
   }
 
   /// Submits the specified [comment] that was incorrectly marked as spam but should not have been.
   Future submitHam(core.Comment comment) {
     assert(comment!=null);
-    var endPoint=Uri.parse('${serviceUrl}${core.EndPoints.submitHam}');
-    print(endPoint);
-    endPoint=serviceUrl.resolve(core.EndPoints.submitHam.toString());
-    print(endPoint);
+    var endPoint=serviceUrl.resolve(core.EndPoints.submitHam.toString());
     return _queryService(endPoint, comment.toJson());
   }
 
   /// Submits the specified [comment] that was not marked as spam but should have been.
   Future submitSpam(core.Comment comment) {
     assert(comment!=null);
-    var endPoint=Uri.parse('${serviceUrl}${core.EndPoints.submitSpam}');
-    print(endPoint);
-    endPoint=serviceUrl.resolve(core.EndPoints.submitSpam.toString());
-    print(endPoint);
+    var endPoint=serviceUrl.resolve(core.EndPoints.submitSpam.toString());
     return _queryService(endPoint, comment.toJson());
   }
 
   /// Checks the [apiKey] against the service database, and returns a value indicating whether it is a valid API key.
   Future<bool> verifyKey() {
-    var endPoint=Uri.parse('${serviceUrl}${core.EndPoints.verifyKey}');
-    print(endPoint);
-    endPoint=serviceUrl.resolve(core.EndPoints.verifyKey.toString());
-    print(endPoint);
+    var endPoint=serviceUrl.resolve(core.EndPoints.verifyKey.toString());
     return _queryService(endPoint, {}).then((result) => result=='valid');
   }
 
@@ -64,9 +48,9 @@ class Client extends core.Client {
     fields['key']=apiKey;
 
     var headers={
-      HttpHeaders.CONTENT_TYPE: 'application/x-www-form-urlencoded; charset=${encoding.name}',
-      //HttpHeaders.X_REQUESTED_WITH: 'XMLHttpRequest',
-      HttpHeaders.USER_AGENT: userAgent
+      HttpHeaders.CONTENT_TYPE: 'application/x-www-form-urlencoded',
+      HttpHeaders.USER_AGENT: userAgent,
+      HttpHeaders.X_REQUESTED_WITH: 'XMLHttpRequest'
     };
 
     return HttpRequest.postFormData(endPoint.toString(), fields, requestHeaders: headers).then((request) {
@@ -83,8 +67,8 @@ class Client extends core.Client {
       return request.responseText;
 
     })
-    .catchError((error) {
-      print(error);
+    .catchError((ProgressEvent error) {
+      print(error.target);
     });
   }
 }

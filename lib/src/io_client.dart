@@ -4,14 +4,10 @@ part of akismet.io;
 class Client extends core.Client {
 
   /// Creates a new [Client] with the specified Akismet [apiKey] and [blog] URL.
-  Client(String apiKey, blog): super(apiKey, blog) {
+  Client(String apiKey, Uri blog): super(apiKey, blog) {
     var dartVersion=Platform.version.split('.').take(3).join('.');
     userAgent='Dart/$dartVersion | Akismet/${core.VERSION}';
   }
-
-  /// The [Encoding] used when querying the remote service.
-  /// Defaults to [UTF8].
-  Encoding encoding=UTF8;
 
   /// A value indicating whether to use secure requests when querying the service database.
   /// Defaults to `false`.
@@ -74,7 +70,7 @@ class Client extends core.Client {
     fields['blog']=blog.toString();
 
     var headers={
-      HttpHeaders.CONTENT_TYPE: 'application/x-www-form-urlencoded; charset=${encoding.name}',
+      HttpHeaders.CONTENT_TYPE: 'application/x-www-form-urlencoded',
       HttpHeaders.USER_AGENT: userAgent
     };
 

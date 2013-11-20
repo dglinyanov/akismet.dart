@@ -6,6 +6,7 @@ This file is normally updated whenever a new version is pushed to [Pub](https://
 * Added new client implementation based on [dart:html](https://api.dartlang.org/dart_html.html).
 * Added server implementation used to proxy client requests to [Akismet](https://akismet.com) service.
 * Breaking change: `Uri` in constructors can no longer be specified as `String`.
+* Breaking change: removed `Client.encoding` property.
 
 #### Version 0.1.1
 * Added `EndPoints` class providing the URLs of the [Akismet](https://akismet.com) service end points.
