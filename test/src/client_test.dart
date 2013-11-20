@@ -63,10 +63,10 @@ class ClientTest {
     var defaultConstructor=const Symbol('');
     var mirror=reflect(_client).type;
 
-    Client client=mirror.newInstance(defaultConstructor, [ 'viagra-test-123', 'http://fake-url.com' ]).reflectee;
+    Client client=mirror.newInstance(defaultConstructor, [ 'viagra-test-123', Uri.parse('http://fake-url.com') ]).reflectee;
     expect(client.verifyKey(), completion(isFalse));
 
-    client=mirror.newInstance(defaultConstructor, [ '', '' ]).reflectee;
+    client=mirror.newInstance(defaultConstructor, [ '', Uri.parse('mailto:viagra-test-123@fake-url.com') ]).reflectee;
     expect(client.verifyKey(), throws);
   }
 }
