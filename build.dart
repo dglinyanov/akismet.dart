@@ -1,8 +1,6 @@
 #!/usr/bin/env dart
 
 /// Dart build system.
-library akismet.build;
-
 import 'dart:async';
 import 'dart:io';
 import 'package:args/args.dart';
