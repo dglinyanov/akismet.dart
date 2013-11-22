@@ -4,14 +4,13 @@ part of akismet.html;
 class Client extends core.Client {
 
   /// Creates a new [Client] with the specified Akismet [apiKey] and [blog] URL.
-  /// The remote service queried by this client is located at the specified [serviceUrl], which defaults to `http://localhost:8080`.
-  Client(String apiKey, Uri blog, { this.serviceUrl }): super(apiKey, blog) {
-    if(serviceUrl==null) serviceUrl=Uri.parse('http://localhost:8080');
-    this.userAgent='Dart/0.0.0 | Akismet/${core.VERSION}';
+  Client(String apiKey, Uri blog): super(apiKey, blog) {
+    userAgent='Dart/0.0.0 | Akismet/${core.VERSION}';
   }
 
   /// The [Uri] of the remote service.
-  Uri serviceUrl;
+  /// Defaults to `http://127.0.0.1:8080`.
+  Uri serviceUrl=Uri.parse('http://127.0.0.1:8080');
 
   /// Checks the specified [comment] against the service database, and returns a value indicating whether it is spam.
   Future<bool> checkComment(core.Comment comment) {
@@ -43,33 +42,25 @@ class Client extends core.Client {
   /// Queries the service by posting the specified [fields] to a given [endPoint], and returns the response as a [String].
   /// Throws a [HttpException] if the remote service returned an error message.
   Future<String> _queryService(Uri endPoint, Map<String, String> fields) {
+    assert(endPoint!=null);
     assert(fields!=null);
+
     fields['blog']=blog.toString();
     fields['key']=apiKey;
 
     var headers={
-      HttpHeaders.CONTENT_TYPE: 'application/x-www-form-urlencoded',
       HttpHeaders.USER_AGENT: userAgent,
       HttpHeaders.X_REQUESTED_WITH: 'XMLHttpRequest'
     };
 
     return HttpRequest.postFormData(endPoint.toString(), fields, requestHeaders: headers).then((request) {
-      print(request.response);
-      print(request.responseHeaders);
-      print(request.responseText);
-      print(request.responseType);
-      print(request.status);
-      print(request.statusText);
-
       if(request.responseHeaders.containsKey('x-akismet-debug-help'))
         throw new HttpException(request.responseHeaders['x-akismet-debug-help'], uri: endPoint);
 
       return request.responseText;
 
     })
-    .catchError((ProgressEvent error) {
-      print(error.target);
-    });
+    .catchError((error) => print(error.target.uri));
   }
 }
 

@@ -42,9 +42,9 @@ void main(List<String> arguments) {
   if(results['help']) return help();
 
   // Start the server.
-  var server=new Server(results['address'], int.parse(results['port']));
-  server.start().then((_) {
+  var server=new Server();
+  server.start(results['address'], int.parse(results['port'])).then((_) {
     var now=new DateTime.now();
-    print('[$now] Server started on http://${server.address}:${server.port}.');
+    print('[$now] Server started on http://${results['address']}:${results['port']}.');
   });
 }

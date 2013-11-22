@@ -48,12 +48,7 @@ class Client extends core.Client {
 
     fields['blog']=blog.toString();
 
-    var headers={
-      HttpHeaders.CONTENT_TYPE: 'application/x-www-form-urlencoded',
-      HttpHeaders.USER_AGENT: userAgent
-    };
-
-    return http.post(endPoint, fields: fields, headers: headers).then((response) {
+    return http.post(endPoint, fields: fields, headers: { HttpHeaders.USER_AGENT: userAgent }).then((response) {
       if(response.headers.containsKey('x-akismet-debug-help'))
         throw new HttpException(response.headers['x-akismet-debug-help'], uri: endPoint);
 
