@@ -4,7 +4,7 @@ This file is normally updated whenever a new version is pushed to [Pub](https://
 
 #### Version 0.2.0
 * Added new client implementation based on [dart:html](https://api.dartlang.org/dart_html.html).
-* Added server implementation used to proxy client requests to [Akismet](https://akismet.com) service.
+* Added server implementation used to proxy requests from HTML clients to [Akismet](https://akismet.com) service.
 * Breaking change: `Uri` in constructors can no longer be specified as `String`.
 * Breaking change: removed `Client.encoding` property.
 
