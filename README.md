@@ -8,7 +8,7 @@ Prevent comment spam using [Akismet](https://akismet.com) service, in [Dart](htt
 * [Submit ham](https://akismet.com/development/api/#submit-ham): submits a comment that was not marked as spam but should have been.
 
 ## Documentation
-* [API Reference](http://cedx.github.io/akismet.dart/api)
+* [API Reference](http://akismet.belin.io/api)
 
 ## Installing via [Pub](https://pub.dartlang.org)
 
@@ -30,18 +30,19 @@ Or if you want to install from the command line, run:
 ### 3. Import it
 Now in your Dart code, you can use:
 
-	import 'package:akismet/io.dart';
+	import 'package:akismet/html.dart'; // In browser applications.
+	import 'package:akismet/io.dart'; // In console applications.
 
 ## Usage
 
 ### Key Verification
-    var client=new Client('123YourAPIKey', 'http://your.blog.url');    
+    var client=new Client('123YourAPIKey', Uri.parse('http://your.blog.url'));    
     client.verifyKey().then((isValid) {
 	  print(isValid ? 'Your API key is valid.' : 'Your API key is invalid.');
     });
 	
 ### Comment Check
-    var client=new Client('123YourAPIKey', 'http://your.blog.url');
+    var client=new Client('123YourAPIKey', Uri.parse('http://your.blog.url'));
     var comment=new Comment('A comment.', new Author('An author.'));
      
     client.checkComment(comment).then((isSpam) {
@@ -49,7 +50,7 @@ Now in your Dart code, you can use:
     });
 	
 ### Submit Spam/Ham
-    var client=new Client('123YourAPIKey', 'http://your.blog.url');
+    var client=new Client('123YourAPIKey', Uri.parse('http://your.blog.url'));
     var comment=new Comment('A comment.', new Author('An author.'));
     
     client.submitSpam(comment).then((_) {
