@@ -1,13 +1,172 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="utf-8">
-  <title>Akismet.dart - Unit Tests</title>
-</head>
-
-<body>
-  <script src="html.dart" type="application/dart"></script>
-  <script src="packages/browser/dart.js"></script>
-</body>
+  <head>
+    <meta charset="utf-8">
+    <title>Akismet.dart - Unit Tests</title>
+    
+    <style>
+      body {
+        background: white;
+        color: #333;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.6em;
+        margin: 20px;
+      }
+  
+      #container {
+        margin: 0 auto;
+        max-width: 640px;
+      }
+  
+      a {
+        color: #4183c4;
+        text-decoration: none;
+      }
+      
+      a:hover {
+        text-decoration: underline;
+      }
+      
+      article {
+        background-color: #eee;
+        border-radius: 3px;
+        padding: 3px;
+      }
+      
+      article > div {
+        background-color: white;
+        border: 1px solid #CACACA;
+        padding: 0.9em;
+      }
+      
+      button {
+        background-color: #eaeaea;
+        background-image: linear-gradient(#fafafa, #eaeaea);
+        background-repeat: repeat-x;
+        border: 1px solid #ddd;
+        border-bottom-color: #c5c5c5;
+        border-radius: 3px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        cursor: pointer;
+        font-family: Arial, sans-serif;
+        font-size: 0.9em;
+        font-weight: bold;
+        line-height: 1.4em;
+        outline: none;
+        padding: 7px 15px;
+        text-shadow: 0 1px 0 rgba(255, 255, 255, 0.9);
+      }
+      
+      button:hover {
+        background-color: #dadada;
+        background-image: linear-gradient(#eaeaea, #dadada);
+        border-color: #ccc #ccc #b5b5b5;
+      }
+      
+      button:active {
+        background-color: #dadada;
+        background-image: none;
+        border-color: #b5b5b5;
+        box-shadow: inset 0 3px 5px rgba(0,0,0,0.15);
+      }
+      
+      h1 {
+        border-bottom: 1px solid #ddd;
+        font-size: 2em;
+        margin: 0 0 0.75em 0;
+        padding: 0 0 0.25em 0;
+      }
+      
+      h2 {
+        background-color: #eaeaea;
+        background-image: linear-gradient(#fafafa, #eaeaea);
+        background-repeat: repeat-x;
+        border: 1px solid #CACACA;
+        border-bottom: none;
+        color: #555;
+        font-size: 1.2em;
+        font-weight: bold;
+        line-height: 1.4em;
+        margin: 0;
+        padding: 8px 0.8em;
+        text-shadow: 0 1px 0 #fff;
+      }
+      
+      input {
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075);
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+        font-size: 1em;
+        min-height: 34px;
+        outline: none;
+        padding: 7px 8px;
+        width: 100%;
+      }
+      
+      input:focus {
+        border-color: #51a7e8;
+        box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075), 0 0 5px rgba(81, 167, 232, 0.5);
+      }
+      
+      label {
+        display: block;
+        font-weight: bold;
+        line-height: 1.4em;
+      }
+      
+      p {
+        margin: 0.9em 0;
+      }
+      
+      p:first-child {
+        margin-top: 0;
+      }
+      
+      p:last-child {
+        margin-bottom: 0;
+      }
+      
+      .alert {
+        background-color: #fcf8e3;
+        border: 1px solid #faebcc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        color: #c09853;
+        margin: 1.5em 0;
+        padding: 0.9em 1em;
+      }
+    </style>
+  </head>
+  
+  <body>
+    <div id="container">
+      <h1>Akismet.dart - Unit Tests</h1>
+      
+      <article>
+        <h2>Settings</h2>
+        
+        <div>
+          <p>
+            <label for="key">Akismet API Key</label>
+            <input id="key" type="text">
+          </p>
+  
+          <p><button id="submit">Run Tests</button></p>
+        </div>
+      </article>
+      
+      <p class="alert">
+        <strong>Note:</strong>
+        In order to run these unit tests, you must have an
+        <a href="https://pub.dartlang.org/packages/akismet">Akismet.dart</a> server
+        running on the same host as this web page on port 8080.
+      </p>
+    </div>
+    
+    <script src="html.dart" type="application/dart"></script>
+    <script src="packages/browser/dart.js"></script>
+  </body>
 </html>

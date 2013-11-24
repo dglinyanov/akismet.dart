@@ -84,9 +84,6 @@ class HttpException implements Exception {
 /// Provides common HTTP headers as defined in [RFC 2616](http://www.w3.org/Protocols/rfc2616/rfc2616.html).
 abstract class HttpHeaders {
 
-  /// Value of the [Content-Type](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17) HTTP header.
-  static const String CONTENT_TYPE='content-type';
-
   /// Value of the [User-Agent](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.43) HTTP header.
   /// Browsers don't allow to modify the user agent string. So this constant specifies the custom value `X-User-Agent`.
   static const String USER_AGENT='x-user-agent';

@@ -7,4 +7,5 @@ import 'dart:async';
 import 'dart:html' hide Comment;
 
 export 'core.dart' hide Client;
+
 part 'src/html_client.dart';

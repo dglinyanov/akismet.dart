@@ -91,7 +91,7 @@ class Server {
     print('[$now] ERROR - $error');
   }
 
-  /// Processes a request body and returns the [Client] and [Comment] requested.
+  /// Processes the specified request [body] and returns the parsed [Client] and [Comment] in a [Map].
   Map<String, dynamic> _processBody(HttpRequestBody body) {
     var headers=body.request.headers;
     var query=body.body as Map;
@@ -124,21 +124,23 @@ class Server {
     // Log the request.
     var address=request.connectionInfo.remoteAddress.address;
     var now=new DateTime.now();
-    print('[$now] $address - ${request.method} ${request.uri}');
+    var userAgent=request.headers[HttpHeaders.USER_AGENT].first;
+    print('[$now] $address - ${request.method} "${request.uri}" - "$userAgent"');
 
     // Add CORS response headers.
     request.response
-      ..headers.set('Access-Control-Allow-Headers', 'X-Requested-With, X-User-Agent')
+      ..headers.set('Access-Control-Allow-Headers', 'x-requested-with, x-user-agent')
       ..headers.set('Access-Control-Allow-Methods', 'GET, OPTIONS, POST')
       ..headers.set('Access-Control-Allow-Origin', '*')
-      ..headers.set('Access-Control-Expose-Headers', 'X-akismet-debug-help');
+      ..headers.set('Access-Control-Expose-Headers', 'x-akismet-debug-help');
 
     return new Future.value(true);
   }
 
-  /// TODO
+  /// Write the specified [result] to the specified request [response].
+  /// If an [error] message is provided, it is added to the [response] headers as `x-akismet-debug-help`.
   void _sendResponse(HttpResponse response, String result, { String error }) {
-    if(error!=null) response.headers.set('X-akismet-debug-help', error);
+    if(error!=null) response.headers.set('x-akismet-debug-help', error);
     response.write(result);
     response.close();
   }

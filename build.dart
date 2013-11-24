@@ -31,7 +31,7 @@ void clean() {
   ];
 
   for(final path in directories) {
-    Directory directory=new Directory(path);
+    var directory=new Directory(path);
     directory.exists().then((result) {
       if(result) {
         print('Delete directory: $path');
@@ -49,7 +49,7 @@ void clean() {
   ];
 
   for(final path in files) {
-    File file=new File(path);
+    var file=new File(path);
     file.exists().then((result) {
       if(result) {
         print('Delete file: $path');
@@ -64,7 +64,7 @@ void docs() {
   print('Generating the API reference...');
 
   var args=[
-    '--include-lib=akismet.core,akismet.io',
+    '--include-lib=akismet.core,akismet.html,akismet.io,http_server,route.url_pattern',
     '--link-api',
     '--package-root=$_root/packages',
     '--no-code',
@@ -72,6 +72,7 @@ void docs() {
   ];
 
   var entryPoints=[
+    '$_root/lib/html.dart',
     '$_root/lib/io.dart'
   ];
 
@@ -128,7 +129,7 @@ void scripts() {
   ]);
 }
 
-/// Runs the unit tests using the specified Akismet API key.
+/// Runs the unit tests using the specified Akismet [apiKey].
 void tests(String apiKey) {
   print('Running the unit tests...');
   unitTests.main([ apiKey ]);
