@@ -5,7 +5,7 @@ class Client extends core.Client {
 
   /// Creates a new [Client] with the specified Akismet [apiKey] and [blog] URL.
   Client(String apiKey, Uri blog): super(apiKey, blog) {
-    userAgent='Dart/0.0.0 | Akismet/${core.VERSION}';
+    userAgent='Dart/0.0.0 | Akismet/${core.PACKAGE_VERSION}';
   }
 
   /// The [Uri] of the remote service.
@@ -49,8 +49,8 @@ class Client extends core.Client {
     fields['key']=apiKey;
 
     var headers={
-      HttpHeaders.USER_AGENT: userAgent,
-      HttpHeaders.X_REQUESTED_WITH: 'XMLHttpRequest'
+      'x-requested-with': 'XMLHttpRequest',
+      'x-user-agent': userAgent
     };
 
     return HttpRequest.postFormData(endPoint.toString(), fields, requestHeaders: headers).then((request) {
@@ -58,9 +58,7 @@ class Client extends core.Client {
         throw new HttpException(request.responseHeaders['x-akismet-debug-help'], uri: endPoint);
 
       return request.responseText;
-
-    })
-    .catchError((error) => print(error.target.uri));
+    });
   }
 }
 
@@ -79,15 +77,4 @@ class HttpException implements Exception {
   /// Returns a string representation of this object.
   @override
   String toString() => 'HttpException { message: "$message", uri: Uri($uri) }';
-}
-
-/// Provides common HTTP headers as defined in [RFC 2616](http://www.w3.org/Protocols/rfc2616/rfc2616.html).
-abstract class HttpHeaders {
-
-  /// Value of the [User-Agent](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.43) HTTP header.
-  /// Browsers don't allow to modify the user agent string. So this constant specifies the custom value `X-User-Agent`.
-  static const String USER_AGENT='x-user-agent';
-
-  /// Value of the [X-Requested-With](http://en.wikipedia.org/wiki/List_of_HTTP_header_fields#Common_non-standard_request_headers) HTTP header.
-  static const String X_REQUESTED_WITH='x-requested-with';
 }
