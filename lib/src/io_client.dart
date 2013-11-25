@@ -6,7 +6,7 @@ class Client extends core.Client {
   /// Creates a new [Client] with the specified Akismet [apiKey] and [blog] URL.
   Client(String apiKey, Uri blog): super(apiKey, blog) {
     var dartVersion=Platform.version.split('.').take(3).join('.');
-    userAgent='Dart/$dartVersion | Akismet/${core.VERSION}';
+    userAgent='Dart/$dartVersion | Akismet/${core.PACKAGE_VERSION}';
   }
 
   /// A value indicating whether to use secure requests when querying the service database.
