@@ -1,7 +1,7 @@
 /// `dart:io` implementation of the unit tests.
 library akismet.tests.io;
 
-import 'core.dart' as core;
+import 'core_test.dart' as core;
 import 'dart:io';
 import 'package:akismet/io.dart';
 import 'package:unittest/vm_config.dart';

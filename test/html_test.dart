@@ -1,7 +1,7 @@
 /// `dart:html` implementation of the unit tests.
 library akismet.tests.html;
 
-import 'core.dart' as core;
+import 'core_test.dart' as core;
 import 'dart:html';
 import 'package:akismet/html.dart';
 import 'package:unittest/html_enhanced_config.dart';
