@@ -105,7 +105,7 @@ class Server {
 
     // Redirect the user whether specified.
     if(redirectUrl!=null) {
-      request.response.redirect(redirectUrl, status: HttpStatus.MOVED_PERMANENTLY);
+      request.response.redirect(redirectUrl.resolveUri(request.uri), status: HttpStatus.MOVED_PERMANENTLY);
       return;
     }
 
