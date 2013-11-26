@@ -29,21 +29,23 @@ void help() {
 
 /// Starts the application using the specified command line [arguments].
 void main(List<String> arguments) {
-  // Parse the command line arguments.
-  ArgResults results;
-  try { results=_parser.parse(arguments); }
+  try {
+    var results=_parser.parse(arguments);
+    return results['help'] ? help() : serve(results['address'], int.parse(results['port']));
+  }
 
   on FormatException catch(e) {
     print(e.message);
     exit(1);
   }
+}
 
-  // Print the help whether required.
-  if(results['help']) return help();
-
-  // Start the server.
-  new Server().start(results['address'], int.parse(results['port'])).then((_) {
+/// Starts a [Server]listening for HTTP requests on the specified [address] and [port].
+/// The [address] can either be a [String] or an [InternetAddress].
+void serve(address, int port) {
+  var server=new Server();
+  server.start(address, port).then((_) {
     var now=new DateTime.now();
-    print('[$now] Server started on http://${results['address']}:${results['port']}.');
+    print('[$now] Server started on http://${server.address.address}:${server.port}.');
   });
 }
