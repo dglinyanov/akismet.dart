@@ -7,13 +7,18 @@ class Server {
   HttpServer _server;
 
   /// Creates a new [Server].
-  Server();
+  /// If a [redirectUrl] is specified, the user is redirected to it when a request is not handled.
+  Server([ this.redirectUrl ]);
 
   /// Returns the address that the server is listening on, or `null` if the server is not started.
   InternetAddress get address => _server!=null ? _server.address : null;
 
   /// Returns the port that the server is listening on, or `-1` if the server is not started.
   int get port => _server!=null ? _server.port : -1;
+
+  /// The [Uri] to redirect the user when a request is not handled.
+  /// If this property is `null`, a 404 status code is sent instead of redirecting.
+  final Uri redirectUrl;
 
   /// Checks a [core.Comment] against the service database, and prints a value indicating whether it is spam.
   void checkComment(HttpRequestBody body) {
@@ -98,6 +103,12 @@ class Server {
       return;
     }
 
+    // Redirect the user whether specified.
+    if(redirectUrl!=null) {
+      request.response.redirect(redirectUrl, status: HttpStatus.MOVED_PERMANENTLY);
+      return;
+    }
+
     // Send a 404 error for all other requests.
     request.response
       ..statusCode=HttpStatus.NOT_FOUND
@@ -138,7 +149,7 @@ class Server {
     return { 'client': client, 'comment': comment };
   }
 
-  /// Logs the [request] and adds [CORS](http://www.w3.org/TR/cors) headers the response.
+  /// Logs the [request] and adds [CORS](http://www.w3.org/TR/cors) headers to the response.
   /// Returns a [Future] that always completes with the `true` value.
   Future<bool> _processRequest(HttpRequest request) {
     // Log the request.

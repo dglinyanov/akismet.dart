@@ -10,13 +10,17 @@ import 'package:path/path.dart' as path;
 final ArgParser _parser=new ArgParser()
   ..addOption('address', abbr: 'a', defaultsTo: '0.0.0.0', help: 'The address to which to listen.')
   ..addOption('port', abbr: 'p', defaultsTo: '8080', help: 'The port on which to listen.')
+  ..addOption('redirect', help: 'The URL to redirect when a request is not handled.')
   ..addFlag('help', abbr: 'h', help: 'Print this usage information.', negatable: false);
 
 /// Starts the application using the specified command line [arguments].
 void main(List<String> arguments) {
   try {
     var results=_parser.parse(arguments);
-    return results['help'] ? printUsage() : startServer(results['address'], int.parse(results['port']));
+    if(results['help']) return printUsage();
+
+    var redirectUrl=(results['redirect']!=null ? Uri.parse(results['redirect']) : null);
+    return startServer(results['address'], int.parse(results['port']), redirectUrl: redirectUrl);
   }
 
   on FormatException catch(e) {
@@ -41,9 +45,11 @@ void printUsage() {
 }
 
 /// Starts a [Server] listening for HTTP requests on the specified [address] and [port].
+/// If a [redirectUrl] is specified, the user is redirected to it when a request is not handled.
+///
 /// The [address] can either be a [String] or an [InternetAddress].
-void startServer(address, int port) {
-  var server=new Server();
+void startServer(address, int port, { Uri redirectUrl }) {
+  var server=new Server(redirectUrl);
   server.start(address, port).then((_) {
     var now=new DateTime.now();
     print('[$now] Server started on http://${server.address.address}:${server.port}.');
