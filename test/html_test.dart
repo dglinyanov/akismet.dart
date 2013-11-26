@@ -23,7 +23,7 @@ void main() {
 
     var serviceUrl=(querySelector('#serviceUrl') as InputElement);
     serviceUrl.value=serviceUrl.value.trim();
-    if(serviceUrl.value.length==0) serviceUrl.value='http://127.0.0.1:8080';
+    if(serviceUrl.value.length==0) serviceUrl.value='http://belin.io:3019';
 
     apiKey.value=apiKey.value.trim();
     if(apiKey.value.length==0) return window.alert('You must provide a valid Akismet API key in order to run the unit tests.');
