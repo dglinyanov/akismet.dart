@@ -9,23 +9,8 @@ import '../test/io_test.dart' as unitTests;
 /// Object used to parse command line argments.
 final ArgParser _parser=new ArgParser()
   ..addOption('key', abbr: 'k', help: 'The Akismet API key.')
-  ..addOption('blog', abbr: 'b', defaultsTo: 'https://github.com/cedx/akismet.dart', help: 'The front page or home URL.')
+  ..addOption('blog', abbr: 'b', defaultsTo: 'http://akismet.belin.io', help: 'The front page or home URL.')
   ..addFlag('help', abbr: 'h', help: 'Print this usage information.', negatable: false);
-
-/// Prints the usage information.
-void printUsage() {
-  var script=path.basename(Platform.script.toFilePath());
-  var buffer=new StringBuffer()
-    ..writeln('Run the unit tests.')
-    ..writeln()
-    ..writeln('Usage:')
-    ..writeln('    $script [options]')
-    ..writeln()
-    ..writeln('Options:')
-    ..write(_parser.getUsage());
-
-  print(buffer);
-}
 
 /// Starts the application using the specified command line [arguments].
 void main(List<String> arguments) {
@@ -42,6 +27,21 @@ void main(List<String> arguments) {
     print(e.message);
     exit(1);
   }
+}
+
+/// Prints the usage information.
+void printUsage() {
+  var script=path.basename(Platform.script.toFilePath());
+  var buffer=new StringBuffer()
+    ..writeln('Run the unit tests.')
+    ..writeln()
+    ..writeln('Usage:')
+    ..writeln('    $script [options]')
+    ..writeln()
+    ..writeln('Options:')
+    ..write(_parser.getUsage());
+
+  print(buffer);
 }
 
 /// Runs the unit tests using the specified Akismet [apiKey] and [blog] URL.
