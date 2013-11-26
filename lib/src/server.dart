@@ -3,8 +3,17 @@ part of akismet.io;
 /// An HTTP server that acts as a proxy between HTML clients and [Akismet](https://akismet.com) service.
 class Server {
 
+  /// The underlying [HttpServer] instance.
+  HttpServer _server;
+
   /// Creates a new [Server].
   Server();
+
+  /// Returns the address that the server is listening on, or `null` if the server is not started.
+  InternetAddress get address => _server!=null ? _server.address : null;
+
+  /// Returns the port that the server is listening on, or `-1` if the server is not started.
+  int get port => _server!=null ? _server.port : -1;
 
   /// Checks a [core.Comment] against the service database, and prints a value indicating whether it is spam.
   void checkComment(HttpRequestBody body) {
@@ -16,10 +25,13 @@ class Server {
 
   /// Starts listening for HTTP requests on the specified [address] and [port].
   /// The [address] can either be a [String] or an [InternetAddress].
+  ///
+  /// The returned [Future] completes when the server is started.
   Future start(address, int port) {
     return HttpServer.bind(address, port)
       .then((server) {
-        new Router(server)
+        _server=server;
+        new Router(_server)
           ..filter(new RegExp(r'^.*$'), _processRequest)
           ..serve(core.EndPoints.checkComment, method: 'POST')
             .transform(new HttpBodyHandler())
@@ -41,6 +53,14 @@ class Server {
         print(error);
         exit(1);
       });
+  }
+
+  /// Permanently stops this server from listening for new connections.
+  /// If [force] is `true`, active connections will be closed immediately.
+  ///
+  /// The returned [Future] completes when the server is stopped.
+  Future stop({ bool force: false }) {
+    return _server.close(force: force).then((_) { _server=null; });
   }
 
   /// Submits a [core.Comment] that was incorrectly marked as spam but should not have been.
@@ -112,8 +132,8 @@ class Server {
 
     // Parse comment values.
     var comment=new core.Comment.fromJson(query);
-    if(comment.author!=null && comment.author.ipAddress==null)
-      comment.author.ipAddress=body.request.connectionInfo.remoteAddress.address;
+    if(comment.author==null) comment.author=new core.Author();
+    if(comment.author.ipAddress==null) comment.author.ipAddress=body.request.connectionInfo.remoteAddress.address;
 
     return { 'client': client, 'comment': comment };
   }
