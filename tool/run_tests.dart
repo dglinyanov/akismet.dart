@@ -34,7 +34,7 @@ void main(List<String> arguments) {
     if(results['help']) return printUsage();
     if(results['key']!=null) return runTests(results['key'], Uri.parse(results['blog']));
 
-    print('You must provide a valid Akismet API key in order to test the package.');
+    print('You must provide a valid Akismet API key in order to run the unit tests.');
     exit(2);
   }
 

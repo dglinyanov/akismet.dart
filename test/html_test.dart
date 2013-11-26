@@ -19,7 +19,7 @@ void main() {
 
     var blog=(querySelector('#blog') as InputElement);
     blog.value=blog.value.trim();
-    if(blog.value.length==0) blog.value='https://github.com/cedx/akismet.dart';
+    if(blog.value.length==0) blog.value='http://akismet.belin.io';
 
     var serviceUrl=(querySelector('#serviceUrl') as InputElement);
     serviceUrl.value=serviceUrl.value.trim();

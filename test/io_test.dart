@@ -11,13 +11,13 @@ void main(List<String> arguments) {
   useVMConfiguration();
 
   if(arguments.isEmpty) {
-    print('You must provide a valid Akismet API key in order to test the package.');
+    print('You must provide a valid Akismet API key in order to run the unit tests.');
     exit(1);
   }
 
   core.main();
 
-  var blog=Uri.parse(arguments.length>1 ? arguments[1] : 'https://github.com/cedx/akismet.dart');
+  var blog=Uri.parse(arguments.length>1 ? arguments[1] : 'http://akismet.belin.io');
   var client=new Client(arguments.first, blog);
   new core.ClientTest(client).run();
 }
