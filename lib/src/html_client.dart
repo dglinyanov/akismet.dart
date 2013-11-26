@@ -5,7 +5,7 @@ class Client extends core.Client {
 
   /// Creates a new [Client] with the specified Akismet [apiKey] and [blog] URL.
   Client(String apiKey, Uri blog): super(apiKey, blog) {
-    userAgent='Dart/0.0.0 | Akismet/${core.PACKAGE_VERSION}';
+    userAgent='Dart/0.0.0 | Akismet/${core.VERSION}';
   }
 
   /// The [Uri] of the remote service.
