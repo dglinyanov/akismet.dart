@@ -5,7 +5,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:args/args.dart';
 import 'package:path/path.dart' as path;
-import 'test/io.dart' as unitTests;
+import 'test/io_test.dart' as unitTests;
 
 /// Object used to parse command line argments.
 final ArgParser _parser=new ArgParser()
@@ -14,7 +14,6 @@ final ArgParser _parser=new ArgParser()
   ..addFlag('clean', help: 'Delete all generated files and reset any saved state.', negatable: false)
   ..addFlag('machine', help: 'Print rich JSON messages to the standard output.', negatable: false)
   ..addFlag('full', help: 'Perform a full build.', negatable: false)
-  ..addFlag('docs', abbr: 'd', help: 'Generate the API reference.', negatable: false)
   ..addFlag('help', abbr: 'h', help: 'Print this usage information.', negatable: false)
   ..addFlag('scripts', abbr: 's', help: 'Generate the client scripts.', negatable: false)
   ..addOption('tests', abbr: 't', help: 'Run the unit tests using the specified Akismet API key.');
@@ -59,27 +58,6 @@ void clean() {
   }
 }
 
-/// Generates the API reference.
-void docs() {
-  print('Generating the API reference...');
-
-  var args=[
-    '--include-lib=akismet.core,akismet.html,akismet.io,http_server,route.url_pattern',
-    '--link-api',
-    '--package-root=$_root/packages',
-    '--no-code',
-    '--out=$_root/doc/api'
-  ];
-
-  var entryPoints=[
-    '$_root/lib/html.dart',
-    '$_root/lib/io.dart'
-  ];
-
-  args.addAll(entryPoints);
-  _run('dartdoc', args);
-}
-
 /// Prints the usage information.
 void help() {
   var script=path.basename(Platform.script.toFilePath());
@@ -110,7 +88,6 @@ void main(List<String> arguments) {
 
   // Handle flags.
   if(results['clean']) return clean();
-  if(results['docs']) return docs();
   if(results['help']) return help();
   if(results['scripts']) return scripts();
   if(results['tests']!=null) return tests(results['tests']);
