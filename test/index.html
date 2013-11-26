@@ -31,6 +31,7 @@
       article {
         background-color: #eee;
         border-radius: 3px;
+        margin: 1em 0;
         padding: 3px;
       }
       
@@ -50,11 +51,11 @@
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
         cursor: pointer;
         font-family: Arial, sans-serif;
-        font-size: 0.9em;
+        font-size: 1em;
         font-weight: bold;
         line-height: 1.4em;
         outline: none;
-        padding: 7px 15px;
+        padding: 7px 1.5em;
         text-shadow: 0 1px 0 rgba(255, 255, 255, 0.9);
       }
       
@@ -128,16 +129,6 @@
       p:last-child {
         margin-bottom: 0;
       }
-      
-      .alert {
-        background-color: #fcf8e3;
-        border: 1px solid #faebcc;
-        border-radius: 4px;
-        box-sizing: border-box;
-        color: #c09853;
-        margin: 1.5em 0;
-        padding: 0.9em 1em;
-      }
     </style>
   </head>
   
@@ -146,23 +137,35 @@
       <h1>Akismet.dart - Unit Tests</h1>
       
       <article>
-        <h2>Settings</h2>
+        <h2>Client</h2>
         
         <div>
           <p>
-            <label for="key">Akismet API Key</label>
-            <input id="key" type="text">
+            <label for="apiKey">Your Akismet API key</label>
+            <input id="apiKey" type="text">
           </p>
   
-          <p><button id="submit">Run Tests</button></p>
+          <p>
+            <label for="blog">Your blog URL</label>
+            <input id="blog" type="url" value="https://github.com/cedx/akismet.dart">
+          </p>
         </div>
       </article>
       
-      <p class="alert">
-        <strong>Note:</strong>
-        In order to run these unit tests, you must have an
-        <a href="https://pub.dartlang.org/packages/akismet">Akismet.dart</a> server
-        running on the same host as this web page on port 8080.
+      <article>
+        <h2>Server</h2>
+        
+        <div>
+          <p>
+            <label for="serviceUrl">Remote service URL</label>
+            <input id="serviceUrl" type="url" value="http://127.0.0.1:8080">
+          </p>
+        </div>
+      </article>
+
+      <p style="text-align: center">
+        <button id="runTests">Run Tests</button>
+        <button id="visitHomepage">Visit Homepage</button>
       </p>
     </div>
     

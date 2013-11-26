@@ -10,15 +10,32 @@ import 'package:unittest/html_enhanced_config.dart';
 void main() {
   useHtmlEnhancedConfiguration();
 
-  print(window.location.host);
+  var apiKey=(querySelector('#apiKey') as InputElement);
+  apiKey.focus();
 
-  var button=(querySelector('#submit') as ButtonElement);
+  var button=(querySelector('#runTests') as ButtonElement);
   button.onClick.listen((event) {
-    var apiKey=(querySelector('#key') as InputElement).value.trim();
-    if(apiKey.length==0) return window.alert('You must provide a valid Akismet API key in order to test the package.');
+    event.preventDefault();
+
+    var blog=(querySelector('#blog') as InputElement);
+    blog.value=blog.value.trim();
+    if(blog.value.length==0) blog.value='https://github.com/cedx/akismet.dart';
+
+    var serviceUrl=(querySelector('#serviceUrl') as InputElement);
+    serviceUrl.value=serviceUrl.value.trim();
+    if(serviceUrl.value.length==0) serviceUrl.value='http://127.0.0.1:8080';
+
+    apiKey.value=apiKey.value.trim();
+    if(apiKey.value.length==0) return window.alert('You must provide a valid Akismet API key in order to run the unit tests.');
 
     core.main();
-    var client=new Client(apiKey, Uri.parse('https://github.com/cedx/akismet.dart'));
+    var client=new Client(apiKey.value, Uri.parse(blog.value))..serviceUrl=Uri.parse(serviceUrl.value);
     new core.ClientTest(client).run();
+  });
+
+  button=(querySelector('#visitHomepage') as ButtonElement);
+  button.onClick.listen((event) {
+    event.preventDefault();
+    window.location.href='https://pub.dartlang.org/packages/akismet';
   });
 }
