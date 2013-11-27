@@ -10,7 +10,7 @@ import 'package:path/path.dart' as path;
 final ArgParser _parser=new ArgParser()
   ..addOption('address', abbr: 'a', defaultsTo: '0.0.0.0', help: 'The address to which to listen.')
   ..addOption('port', abbr: 'p', defaultsTo: '8080', help: 'The port on which to listen.')
-  ..addOption('redirect', help: 'The URL to redirect when a request is not handled.')
+  ..addOption('redirect', abbr: 'r', help: 'The URL to redirect when a request is not handled.')
   ..addFlag('help', abbr: 'h', help: 'Print this usage information.', negatable: false);
 
 /// Starts the application using the specified command line [arguments].
@@ -33,7 +33,7 @@ void main(List<String> arguments) {
 void printUsage() {
   var script=path.basename(Platform.script.toFilePath());
   var buffer=new StringBuffer()
-    ..writeln('Akismet.dart Server.')
+    ..writeln('Starts an Akismet.dart server.')
     ..writeln()
     ..writeln('Usage:')
     ..writeln('    $script [options]')
