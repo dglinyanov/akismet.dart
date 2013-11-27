@@ -14,6 +14,8 @@ final ArgParser _parser=new ArgParser()
 
 /// Starts the application using the specified command line [arguments].
 void main(List<String> arguments) {
+  if(arguments.isEmpty) return printUsage();
+
   try {
     var results=_parser.parse(arguments);
     if(results['help']) return printUsage();

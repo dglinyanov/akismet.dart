@@ -61,12 +61,19 @@ class ClientTest {
     expect(_client.verifyKey(), completion(isTrue));
 
     var defaultConstructor=const Symbol('');
-    var mirror=reflect(_client).type;
+    var instanceMirror=reflect(_client);
+    var classMirror=instanceMirror.type;
 
-    var client=mirror.newInstance(defaultConstructor, [ 'viagra-test-123', Uri.parse('http://fake-url.com') ]).reflectee;
+    Uri serviceUrl;
+    try { serviceUrl=instanceMirror.getField(#serviceUrl).reflectee; }
+    on NoSuchMethodError { serviceUrl=null; }
+
+    var client=classMirror.newInstance(defaultConstructor, [ 'viagra-test-123', Uri.parse('http://fake-url.com') ]).reflectee;
+    if(serviceUrl!=null) client.serviceUrl=serviceUrl;
     expect(client.verifyKey(), completion(isFalse));
 
-    client=mirror.newInstance(defaultConstructor, [ '', Uri.parse('mailto:viagra-test-123@fake-url.com') ]).reflectee;
+    client=classMirror.newInstance(defaultConstructor, [ '', Uri.parse('mailto:viagra-test-123@fake-url.com') ]).reflectee;
+    if(serviceUrl!=null) client.serviceUrl=serviceUrl;
     expect(client.verifyKey(), throws);
   }
 }
