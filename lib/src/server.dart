@@ -7,7 +7,7 @@ class Server {
   HttpServer _server;
 
   /// Creates a new [Server].
-  /// If a [redirectUrl] is specified, the user is redirected to it when a request is not handled.
+  /// If a [redirectUrl] is specified, the user is redirected to it when a request is unhandled.
   Server([ this.redirectUrl ]);
 
   /// Returns the address that the server is listening on, or `null` if the server is not started.
@@ -16,7 +16,7 @@ class Server {
   /// Returns the port that the server is listening on, or `-1` if the server is not started.
   int get port => _server!=null ? _server.port : -1;
 
-  /// The [Uri] to redirect the user when a request is not handled.
+  /// The [Uri] to redirect the user when a request is unhandled.
   /// If this property is `null`, a 404 status code is sent instead of redirecting.
   final Uri redirectUrl;
 
