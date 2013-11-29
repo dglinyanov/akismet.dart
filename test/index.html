@@ -4,158 +4,160 @@
     <meta charset="utf-8">
     <title>Akismet.dart - Unit Tests</title>
     
+    <meta name="application-name" content="akismet.dart">
+    <meta name="author" content="Cédric Belin - cedric@belin.io">
+    <meta name="description" content="Prevent comment spam using Akismet service (https://akismet.com), in Dart.">
+    <meta name="keywords" content="belin, dart, akismet, prevent, spam">
+    <meta name="viewport" content="initial-scale=1, user-scalable=no, width=device-width">
+    
+    <link rel="apple-touch-icon" href="http://akismet.belin.io/apple-touch-icon.png">
+    <link rel="icon" href="http://akismet.belin.io/favicon.ico">
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap-theme.min.css">
+    
     <style>
-      body {
-        background: white;
-        color: #333;
-        font-family: Arial, sans-serif;
-        font-size: 14px;
-        line-height: 1.6em;
-        margin: 20px;
-      }
-  
-      #container {
-        margin: 0 auto;
-        max-width: 640px;
-      }
-  
-      a { color: #4183c4; text-decoration: none; }
-      a:hover { text-decoration: underline; }
-      
-      article {
-        background-color: #eee;
-        border-radius: 3px;
-        margin: 1em 0;
-        padding: 3px;
-      }
-      
-      article > div {
-        background-color: white;
-        border: 1px solid #CACACA;
-        padding: 0.9em;
-      }
-      
-      button {
-        background-color: #eaeaea;
-        background-image: linear-gradient(#fafafa, #eaeaea);
-        background-repeat: repeat-x;
-        border: 1px solid #ddd;
-        border-bottom-color: #c5c5c5;
-        border-radius: 3px;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-        cursor: pointer;
-        font-family: Arial, sans-serif;
-        font-size: 1em;
-        font-weight: bold;
-        line-height: 1.4em;
-        outline: none;
-        padding: 7px 1.5em;
-        text-shadow: 0 1px 0 rgba(255, 255, 255, 0.9);
-      }
-      
-      button:hover {
-        background-color: #dadada;
-        background-image: linear-gradient(#eaeaea, #dadada);
-        border-color: #ccc #ccc #b5b5b5;
-      }
-      
-      button:active {
-        background-color: #dadada;
-        background-image: none;
-        border-color: #b5b5b5;
-        box-shadow: inset 0 3px 5px rgba(0,0,0,0.15);
-      }
-      
-      h1 {
-        border-bottom: 1px solid #ddd;
-        font-size: 2em;
-        margin: 0 0 0.75em 0;
-        padding: 0 0 0.25em 0;
-      }
-      
-      h2 {
-        background-color: #eaeaea;
-        background-image: linear-gradient(#fafafa, #eaeaea);
-        background-repeat: repeat-x;
-        border: 1px solid #CACACA;
-        border-bottom: none;
-        color: #555;
-        font-size: 1.2em;
-        font-weight: bold;
-        line-height: 1.4em;
-        margin: 0;
-        padding: 8px 0.8em;
-        text-shadow: 0 1px 0 #fff;
-      }
-      
-      input {
-        border: 1px solid #ccc;
-        border-radius: 3px;
-        box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075);
-        box-sizing: border-box;
-        font-family: Arial, sans-serif;
-        font-size: 1em;
-        min-height: 34px;
-        outline: none;
-        padding: 7px 8px;
-        width: 100%;
-      }
-      
-      input:focus {
-        border-color: #51a7e8;
-        box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075), 0 0 5px rgba(81, 167, 232, 0.5);
-      }
-      
-      label {
-        display: block;
-        font-weight: bold;
-        line-height: 1.4em;
-      }
-      
-      p { margin: 0.9em 0; }
-      p:first-child { margin-top: 0; }
-      p:last-child { margin-bottom: 0; }
+      body { background-color: #f5f5f5; padding-top: 50px; }
+      aside { margin-top: 10px; }
+      section { background-color: white; padding-bottom: 1em; }
+      footer .navbar { border-radius: 0; font-size: 0.9em; }
+      .container { max-width: 860px; }
+      .navbar { margin-bottom: 0; }
+      .page-header { margin: 25px 0 10px 0; }
     </style>
   </head>
   
   <body>
-    <div id="container">
-      <h1>Akismet.dart - Unit Tests</h1>
-      
-      <article>
-        <h2>Client</h2>
+    <header>
+      <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#collapsible-menu">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="http://akismet.belin.io">Akismet.dart</a>
+          </div>
         
-        <div>
-          <p>
-            <label for="apiKey">Your Akismet API key</label>
-            <input id="apiKey" type="text">
-          </p>
-  
-          <p>
-            <label for="blog">Your blog URL</label>
-            <input id="blog" type="url" value="http://akismet.belin.io">
-          </p>
+          <div class="collapse navbar-collapse" id="collapsible-menu">
+            <ul class="nav navbar-nav">
+              <li><a href="http://akismet.belin.io">Home</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Documentation <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="http://akismet.belin.io/api" target="_blank"><span class="glyphicon glyphicon-new-window"></span> API reference</a></li>
+                  <li><a href="http://dev.belin.io/akismet.dart/wiki" target="_blank"><span class="glyphicon glyphicon-new-window"></span> Wiki</a></li>
+                </ul>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Downloads <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="https://pub.dartlang.org/packages/akismet" target="_blank"><span class="glyphicon glyphicon-new-window"></span> Pub package</a></li>
+                  <li class="divider"></li>
+                  <li><a href="http://dev.belin.io/akismet.dart/get/master.zip"><span class="glyphicon glyphicon-download-alt"></span> Source code (.zip)</a></li>
+                  <li><a href="http://dev.belin.io/akismet.dart/get/master.tar.gz"><span class="glyphicon glyphicon-download-alt"></span> Source code (.tar.gz)</a></li>
+                </ul>
+              </li>
+              <li class="active"><a href="http://akismet.belin.io/tests">Unit Tests</a></li>
+            </ul>
+            
+            <ul class="nav navbar-nav navbar-right">
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-info-sign"></span><b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li class="dropdown-header">Author</li>
+                  <li><a href="mailto:cedric@belin.io"><span class="glyphicon glyphicon-envelope"></span> Cédric Belin</a></li>
+                  <li class="divider"></li>
+                  <li class="dropdown-header">Homepage</li>
+                  <li><a href="http://dev.belin.io/akismet.dart" target="_blank"><span class="glyphicon glyphicon-new-window"></span> Bitbucket</a></li>
+                </ul>
+              </li>
+              <li><button type="button" class="btn btn-success navbar-btn">Fork me on Bitbucket</button></li>
+            </ul>
+          </div>
         </div>
-      </article>
-      
-      <article>
-        <h2>Server</h2>
-        
-        <div>
-          <p>
-            <label for="serviceUrl">Remote service URL</label>
-            <input id="serviceUrl" type="url" value="http://belin.io:3019">
-          </p>
-        </div>
-      </article>
+      </nav>
+    </header>
 
-      <p style="text-align: center">
-        <button id="runTests">Run Tests</button>
-        <button id="visitHomepage">Visit Homepage</button>
-      </p>
-    </div>
+    <section>
+      <div class="container">
+        <header class="page-header">
+          <h1>Unit Tests <small>0.2.1</small></h1>
+        </header>
+        
+        <aside class="col-sm-3 pull-right well">
+          <p>
+            Prevent comment spam using <a href="https://akismet.com" target="_blank">Akismet</a> service,
+            in <a href="https://www.dartlang.org" target="_blank">Dart</a>.
+          </p>
+          
+          <div class="list-group">
+            <a href="#" class="list-group-item">Author</a>
+            <a href="#" class="list-group-item">Homepage</a>
+            <a href="#" class="list-group-item">Documentation</a>
+          </div>
+        </aside>
+  
+        <article class="col-sm-9">
+          <form class="form-horizontal">
+            <h3><span class="glyphicon glyphicon-cloud-upload"></span> Client</h3>
+  
+            <div class="form-group">
+              <label class="col-sm-3 control-label" for="apiKey">API key<span class="aui-icon icon-required"> required</span></label>
+              <div class="col-sm-6 input-group">
+                <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                <input id="apiKey" class="form-control" placeholder="Your Akismet API key" required type="text">
+              </div>
+            </div>
     
-    <script src="html_test.dart" type="application/dart"></script>
+            <div class="form-group">
+              <label class="col-sm-3 control-label" for="blog">Blog URL</label>
+              <div class="col-sm-9 input-group">
+                <span class="input-group-addon"><span class="glyphicon glyphicon-link"></span></span>
+                <input id="blog" class="form-control" type="url" placeholder="http://akismet.belin.io" value="http://akismet.belin.io">
+              </div>
+            </div>
+            
+            <h3><span class="glyphicon glyphicon-cloud-download"></span> Server</h3>
+  
+            <div class="form-group">
+              <label class="col-sm-3 control-label" for="serviceUrl">Service URL</label>
+              <div class="col-sm-9 input-group">
+                <span class="input-group-addon"><span class="glyphicon glyphicon-link"></span></span>
+                <input id="serviceUrl" class="form-control" type="url" placeholder="http://belin.io:3019" value="http://belin.io:3019">
+              </div>
+            </div>
+    
+            <div class="form-group">
+              <div class="col-sm-offset-3 col-sm-9">
+                <button id="runTests" type="button" class="btn btn-primary">Run Tests</button>
+                <button id="visitHomepage" type="button" class="btn btn-link" data-url="http://akismet.belin.io">Cancel</button>
+              </div>
+            </div>
+          </form>
+        </article>
+      </div>
+    </section>
+    
+    <footer>
+      <nav class="navbar navbar-default">
+        <div class="container">
+          <p class="navbar-right navbar-text">
+            Fork me on <a href="http://dev.belin.io/akismet.dart" target="_blank">Bitbucket</a>
+          </p>
+          
+          <p class="navbar-left navbar-text">
+            Copyright &copy; 2013 <a class="navbar-link" href="http://belin.io" target="_blank">Cédric Belin</a>
+            - All rights reserved
+          </p>
+        </div>
+      </nav>
+    </footer>
+    
+    <!-- TODO: <script src="html_test.dart" type="application/dart"></script>-->
     <script src="packages/browser/dart.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
   </body>
 </html>
