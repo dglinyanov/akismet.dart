@@ -1,6 +1,8 @@
 #!/usr/bin/env dart
 
 /// Dart build system.
+library akismet.build;
+
 import 'dart:convert';
 import 'dart:io';
 import 'package:args/args.dart';

@@ -1,6 +1,8 @@
 #!/usr/bin/env dart
 
 /// Run the unit tests.
+library akismet.tools.run_tests;
+
 import 'dart:io';
 import 'package:args/args.dart';
 import 'package:path/path.dart' as path;

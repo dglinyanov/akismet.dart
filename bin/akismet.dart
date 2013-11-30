@@ -1,6 +1,8 @@
 #!/usr/bin/env dart
 
 /// Command line interface.
+library akismet.cli;
+
 import 'dart:io';
 import 'package:akismet/io.dart';
 import 'package:args/args.dart';
