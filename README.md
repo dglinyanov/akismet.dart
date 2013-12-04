@@ -41,7 +41,7 @@ import 'package:akismet/io.dart'; // In console applications.
 
 ### Key Verification
 ```dart
-var client=new Client('123YourAPIKey', Uri.parse('http://your.blog.url'));    
+var client = new Client('123YourAPIKey', Uri.parse('http://your.blog.url'));    
 client.verifyKey().then((isValid) {
   print(isValid ? 'Your API key is valid.' : 'Your API key is invalid.');
 });
@@ -49,8 +49,8 @@ client.verifyKey().then((isValid) {
 	
 ### Comment Check
 ```dart
-var client=new Client('123YourAPIKey', Uri.parse('http://your.blog.url'));
-var comment=new Comment('A comment.', new Author('An author.'));
+var client = new Client('123YourAPIKey', Uri.parse('http://your.blog.url'));
+var comment = new Comment('A comment.', new Author('An author.'));
   
 client.checkComment(comment).then((isSpam) {
   print(isSpam ? 'The comment is marked as spam.' : 'The comment is marked as ham.');
@@ -59,8 +59,8 @@ client.checkComment(comment).then((isSpam) {
 	
 ### Submit Spam/Ham
 ```dart
-var client=new Client('123YourAPIKey', Uri.parse('http://your.blog.url'));
-var comment=new Comment('A comment.', new Author('An author.'));
+var client = new Client('123YourAPIKey', Uri.parse('http://your.blog.url'));
+var comment = new Comment('A comment.', new Author('An author.'));
 
 client.submitSpam(comment).then((_) {
   print('Spam submitted.');
