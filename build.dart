@@ -89,7 +89,7 @@ void printUsage() {
 /// See [Dart Editor Build System](https://www.dartlang.org/tools/editor/build.html)
 /// for more information about the available parameters.
 void _echo(String message, { String method: 'info', String file: 'build.dart', int line: 0, int charStart: -1, int charEnd: -1 }) {
-  if(!_machineInterface) return print(method=='info' ? message: '[$file:$line] $message');
+  if(!_machineInterface) return print(method=='info' ? message : '[$file:$line] $message');
 
   if(method!='info') {
     var params={ 'file': file, 'message': message };

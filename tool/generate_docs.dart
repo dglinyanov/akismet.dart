@@ -56,6 +56,7 @@ void writeDocs(String outputDirectory) {
   var args=[
     '--include-lib=akismet.core,akismet.html,akismet.io,http_server,route.url_pattern',
     '--link-api',
+    '--no-code',
     '--package-root='+path.join(_root, 'packages'),
     '--out=$outputDirectory',
     path.join(_root, 'lib', 'html.dart'),

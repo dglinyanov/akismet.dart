@@ -8,11 +8,10 @@
     <meta name="author" content="Cédric Belin - cedric@belin.io">
     <meta name="description" content="Prevent comment spam using Akismet service (https://akismet.com), in Dart.">
     <meta name="keywords" content="belin, dart, akismet, prevent, spam">
-    <meta name="viewport" content="initial-scale=1, user-scalable=no, width=device-width">
+    <meta name="viewport" content="initial-scale=1, user-scalable=no">
     
     <link rel="apple-touch-icon" href="http://akismet.belin.io/apple-touch-icon.png">
     <link rel="icon" href="http://akismet.belin.io/favicon.ico">
-    
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,700">
     <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
@@ -36,133 +35,161 @@
       <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
           <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#collapsible-menu">
+            <button type="button" class="navbar-toggle" data-target="#collapsible-menu" data-toggle="collapse">
               <span class="sr-only">Toggle navigation</span>
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="http://akismet.belin.io">Akismet.dart</a>
+            <a class="navbar-brand" href="http://akismet.belin.io"><img alt="" src="http://akismet.belin.io/favicon.ico"> Akismet.dart</a>
           </div>
         
           <div class="collapse navbar-collapse" id="collapsible-menu">
             <ul class="nav navbar-nav">
-              <li><a href="http://akismet.belin.io">Home</a></li>
+              <li><a href="/#home">Home</a></li>
               <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Documentation <b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Services <i class="fa fa-caret-down"></i></a>
                 <ul class="dropdown-menu">
-                  <li><a href="http://akismet.belin.io/api" target="_blank"><span class="glyphicon glyphicon-new-window"></span> API reference</a></li>
-                  <li><a href="http://dev.belin.io/akismet.dart/wiki" target="_blank"><span class="glyphicon glyphicon-new-window"></span> Wiki</a></li>
+                  <li><a href="/#services/check-comment"><i class="fa fa-comment fa-fw"></i> Comment check</a></li>
+                  <li><a href="/#services/verify-key"><i class="fa fa-key fa-fw"></i> Key verification</a></li>
                 </ul>
               </li>
               <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Downloads <b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Documentation <i class="fa fa-caret-down"></i></a>
                 <ul class="dropdown-menu">
-                  <li><a href="https://pub.dartlang.org/packages/akismet" target="_blank"><span class="glyphicon glyphicon-new-window"></span> Pub package</a></li>
-                  <li class="divider"></li>
-                  <li><a href="http://dev.belin.io/akismet.dart/get/master.zip"><span class="glyphicon glyphicon-download-alt"></span> Source code (.zip)</a></li>
-                  <li><a href="http://dev.belin.io/akismet.dart/get/master.tar.gz"><span class="glyphicon glyphicon-download-alt"></span> Source code (.tar.gz)</a></li>
+                  <li><a href="/api"><i class="fa fa-book fa-fw"></i> API reference</a></li>
+                  <li><a href="https://pub.dartlang.org/packages/akismet"><i class="fa fa-archive fa-fw"></i> Pub package</a></li>
+                  <li><a href="https://github.com/cedx/akismet.dart/wiki"><i class="fa fa-question-circle fa-fw"></i> Wiki</a></li>
                 </ul>
               </li>
-              <li class="active"><a href="http://akismet.belin.io/tests">Unit Tests</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Development <i class="fa fa-caret-down"></i></a>
+                <ul class="dropdown-menu">
+                  <li><a href="https://github.com/cedx/akismet.dart/issues"><i class="fa fa-bug fa-fw"></i> Issues</a></li>
+                  <li><a href="https://github.com/cedx/akismet.dart"><i class="fa fa-code fa-fw"></i> Source code</a></li>
+                  <li class="active"><a href="/tests"><i class="fa fa-cogs fa-fw"></i> Unit tests</a></li>
+                </ul>
+              </li>
             </ul>
             
             <ul class="nav navbar-nav navbar-right">
               <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-info-sign"></span><b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="About"><i class="fa fa-info-circle fa-lg"></i> <i class="fa fa-caret-down"></i></a>
                 <ul class="dropdown-menu">
-                  <li class="dropdown-header">Author</li>
-                  <li><a href="mailto:cedric@belin.io"><span class="glyphicon glyphicon-envelope"></span> Cédric Belin</a></li>
+                  <li class="dropdown-header">Project</li>
+                  <li><a href="https://github.com/cedx/akismet.dart/raw/master/LICENSE.txt"><i class="fa fa-file-text fa-fw"></i> License</a></li>
                   <li class="divider"></li>
-                  <li class="dropdown-header">Homepage</li>
-                  <li><a href="http://dev.belin.io/akismet.dart" target="_blank"><span class="glyphicon glyphicon-new-window"></span> Bitbucket</a></li>
+                  <li class="dropdown-header">Author</li>
+                  <li><a href="mailto:cedric@belin.io"><i class="fa fa-envelope fa-fw"></i> cedric@belin.io</a></li>
+                  <li><a href="http://belin.io"><i class="fa fa-globe fa-fw"></i> http://belin.io</a></li>
                 </ul>
               </li>
-              <li><button type="button" class="btn btn-success navbar-btn">Fork me on Bitbucket</button></li>
+              <li>
+                <div>
+                  <a href="https://github.com/cedx/akismet.dart" class="btn btn-success navbar-btn">Fork me on GitHub</a>
+                </div>
+              </li>
             </ul>
           </div>
         </div>
       </nav>
     </header>
-
-    <section>
-      <div class="container">
-        <header class="page-header">
-          <h1>Unit Tests <small>0.2.1</small></h1>
-        </header>
+    <article>
+      <header class="page-header">
+        <div class="container">
+          <h1>Unit Tests</h1>
+        </div>
+      </header>
         
-        <aside class="col-sm-3 pull-right well">
-          <p>
-            Prevent comment spam using <a href="https://akismet.com" target="_blank">Akismet</a> service,
-            in <a href="https://www.dartlang.org" target="_blank">Dart</a>.
-          </p>
-          
-          <div class="list-group">
-            <a href="#" class="list-group-item">Author</a>
-            <a href="#" class="list-group-item">Homepage</a>
-            <a href="#" class="list-group-item">Documentation</a>
+      <section class="container">
+        <div class="row">
+          <aside class="col-sm-3 pull-right">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-download"></i> Downloads</h3>
+              </div>
+              
+              <div class="list-group">
+                <a href="https://github.com/cedx/akismet.dart/releases/download/v0.2.1/akismet.dart-0.2.1.zip" class="list-group-item">Pub package <span class="label label-info pull-right">0.2.1</span></a>
+                <a href="https://github.com/cedx/akismet.dart/archive/master.zip" class="list-group-item">Source code <span class="label label-default pull-right">ZIP</span></a>
+                <a href="https://github.com/cedx/akismet.dart/archive/master.tar.gz" class="list-group-item">Source code <span class="label label-default pull-right">TAR.GZ</span></a>
+              </div>
+            </div>
+          </aside>
+    
+          <div class="col-sm-9">      
+            <form id="form-unit-tests" class="form-horizontal">
+              <h3><span class="glyphicon glyphicon-cloud-upload"></span> Client</h3>
+    
+              <div class="form-group">
+                <label class="col-sm-3 control-label" for="apiKey">API key <i class="fa fa-required"> required</i></label>
+                <div class="col-sm-6 input-group">
+                  <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                  <input id="apiKey" autofocus class="form-control" placeholder="Your Akismet API key" required type="text">
+                </div>
+              </div>
+      
+              <div class="form-group">
+                <label class="col-sm-3 control-label" for="blog">Blog URL</label>
+                <div class="col-sm-9 input-group">
+                  <span class="input-group-addon"><span class="glyphicon glyphicon-link"></span></span>
+                  <input id="blog" class="form-control" type="url" placeholder="http://akismet.belin.io" value="http://akismet.belin.io">
+                </div>
+              </div>
+              
+              <h3><span class="glyphicon glyphicon-cloud-download"></span> Server</h3>
+    
+              <div class="form-group">
+                <label class="col-sm-3 control-label" for="serviceUrl">Service URL</label>
+                <div class="col-sm-9 input-group">
+                  <span class="input-group-addon"><span class="glyphicon glyphicon-link"></span></span>
+                  <input id="serviceUrl" class="form-control" type="url" placeholder="http://api.belin.io:3019" value="http://api.belin.io:3019">
+                </div>
+              </div>
+      
+              <div class="form-group">
+                <div class="col-sm-offset-3 col-sm-9">
+                  <button id="btn-submit" type="submit" class="btn btn-primary">Run Tests</button>
+                  <a id="btn-cancel" href="http://akismet.belin.io" class="btn btn-link">Cancel</a>
+                </div>
+              </div>
+            </form>
           </div>
-        </aside>
-  
-        <article class="col-sm-9">
-          <form class="form-horizontal">
-            <h3><span class="glyphicon glyphicon-cloud-upload"></span> Client</h3>
-  
-            <div class="form-group">
-              <label class="col-sm-3 control-label" for="apiKey">API key<span class="aui-icon icon-required"> required</span></label>
-              <div class="col-sm-6 input-group">
-                <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
-                <input id="apiKey" class="form-control" placeholder="Your Akismet API key" required type="text">
-              </div>
-            </div>
-    
-            <div class="form-group">
-              <label class="col-sm-3 control-label" for="blog">Blog URL</label>
-              <div class="col-sm-9 input-group">
-                <span class="input-group-addon"><span class="glyphicon glyphicon-link"></span></span>
-                <input id="blog" class="form-control" type="url" placeholder="http://akismet.belin.io" value="http://akismet.belin.io">
-              </div>
-            </div>
-            
-            <h3><span class="glyphicon glyphicon-cloud-download"></span> Server</h3>
-  
-            <div class="form-group">
-              <label class="col-sm-3 control-label" for="serviceUrl">Service URL</label>
-              <div class="col-sm-9 input-group">
-                <span class="input-group-addon"><span class="glyphicon glyphicon-link"></span></span>
-                <input id="serviceUrl" class="form-control" type="url" placeholder="http://belin.io:3019" value="http://belin.io:3019">
-              </div>
-            </div>
-    
-            <div class="form-group">
-              <div class="col-sm-offset-3 col-sm-9">
-                <button id="runTests" type="button" class="btn btn-primary">Run Tests</button>
-                <button id="visitHomepage" type="button" class="btn btn-link" data-url="http://akismet.belin.io">Cancel</button>
-              </div>
-            </div>
-          </form>
-        </article>
-      </div>
-    </section>
+        </div>
+      </section>
+    </article>
     
     <footer>
       <nav class="navbar navbar-default">
         <div class="container">
-          <p class="navbar-right navbar-text">
-            Fork me on <a href="http://dev.belin.io/akismet.dart" target="_blank">Bitbucket</a>
-          </p>
-          
-          <p class="navbar-left navbar-text">
-            Copyright &copy; 2013 <a class="navbar-link" href="http://belin.io" target="_blank">Cédric Belin</a>
-            - All rights reserved
-          </p>
+          <div class="row">
+            <ul class="nav navbar-nav">
+              <li>
+                <p class="navbar-text">
+                  Copyright &copy; 2013 <a class="navbar-link" href="http://belin.io">Cédric Belin</a>
+                  — All rights reserved
+                </p>
+              </li>
+            </ul>
+  
+            <ul class="nav navbar-nav navbar-right">
+              <li>
+                <a href="https://github.com/cedx/akismet.dart" data-toggle="tooltip" title="GitHub"><i class="fa fa-github fa-lg"></i></a>
+              </li>
+              <li>
+                <a href="https://pub.dartlang.org/packages/akismet" data-toggle="tooltip" title="Pub"><i class="fa fa-beer fa-lg"></i></a>
+              </li>
+            </ul>
+          </div>
         </div>
       </nav>
     </footer>
     
-    <script src="html_test.dart" type="application/dart"></script>
-    <script src="packages/browser/dart.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+    <script src="http://akismet.belin.io/lib/i18next.js"></script>
+    <script src="html_test.dart" type="application/dart"></script>
+    <script src="http://akismet.belin.io/lib/packages/browser/dart.js"></script>
+    <script src="http://akismet.belin.io/lib/packages/browser/interop.js"></script>
   </body>
 </html>
