@@ -17,6 +17,7 @@ void main() {
   var button=(querySelector('#btn-submit') as ButtonElement);
   button.onClick.listen((event) {
     event.preventDefault();
+    for(var element in querySelectorAll('#form-unit-tests > .form-group')) element.classes.remove('has-error');
 
     var blog=(querySelector('#blog-url') as InputElement);
     blog.value=blog.value.trim();
@@ -28,7 +29,11 @@ void main() {
 
     var apiKey=(querySelector('#api-key') as InputElement);
     apiKey.value=apiKey.value.trim();
-    if(apiKey.value.length==0) return window.alert('You must provide a valid Akismet API key in order to run the unit tests.');
+    if(apiKey.value.length==0) {
+      apiKey.parent.parent.classes.add('has-error');
+      apiKey.focus();
+      return window.alert('You must provide a valid Akismet API key in order to run the unit tests.');
+    }
 
     core.main();
     var client=new Client(apiKey.value, Uri.parse(blog.value))..serviceUrl=Uri.parse(serviceUrl.value);
