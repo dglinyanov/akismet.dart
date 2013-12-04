@@ -2,9 +2,11 @@
 library akismet.tests.core;
 
 import 'dart:convert';
-import 'dart:mirrors' hide Comment;
 import 'package:akismet/core.dart';
 import 'package:unittest/unittest.dart';
+
+@MirrorsUsed(targets: Client)
+import 'dart:mirrors' hide Comment;
 
 part 'src/author_test.dart';
 part 'src/client_test.dart';
