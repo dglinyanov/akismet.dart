@@ -165,16 +165,4 @@ void _writeScripts(String entryPoint, String outputDirectory, { format: 'js' }) 
   }
 
   _echo(result.stdout);
-
-  /* TODO
-  Process.start(path.join(Platform.environment['DART_SDK'], 'bin', 'dart2js'), args)
-    .then((process) {
-      process.stderr.pipe(stderr);
-      process.stdout.pipe(stdout);
-      process.exitCode.then((exitCode) => exit(exitCode));
-    })
-    .catchError((error) {
-      _echo(error.toString(), method: 'error');
-      exit(3);
-    });*/
 }

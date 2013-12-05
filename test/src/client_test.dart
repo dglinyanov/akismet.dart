@@ -60,7 +60,7 @@ class ClientTest {
   void testVerifyKey() {
     expect(_client.verifyKey(), completion(isTrue));
 
-    var defaultConstructor=const Symbol('');
+    const constructor=const Symbol('');
     var instanceMirror=reflect(_client);
     var classMirror=instanceMirror.type;
 
@@ -68,11 +68,11 @@ class ClientTest {
     try { serviceUrl=instanceMirror.getField(#serviceUrl).reflectee; }
     on NoSuchMethodError { serviceUrl=null; }
 
-    var client=classMirror.newInstance(defaultConstructor, [ 'viagra-test-123', Uri.parse('http://fake-url.com') ]).reflectee;
+    var client=classMirror.newInstance(constructor, [ 'viagra-test-123', Uri.parse('http://fake-url.com') ]).reflectee;
     if(serviceUrl!=null) client.serviceUrl=serviceUrl;
     expect(client.verifyKey(), completion(isFalse));
 
-    client=classMirror.newInstance(defaultConstructor, [ '', Uri.parse('mailto:viagra-test-123@fake-url.com') ]).reflectee;
+    client=classMirror.newInstance(constructor, [ '', Uri.parse('mailto:viagra-test-123@fake-url.com') ]).reflectee;
     if(serviceUrl!=null) client.serviceUrl=serviceUrl;
     expect(client.verifyKey(), throws);
   }
