@@ -36,19 +36,21 @@ class Server {
     return HttpServer.bind(address, port)
       .then((server) {
         _server=server;
+
+        var bodyHandler=new HttpBodyHandler();
         new Router(_server)
           ..filter(new RegExp(r'^.*$'), _processRequest)
           ..serve(core.EndPoints.checkComment, method: 'POST')
-            .transform(new HttpBodyHandler())
+            .transform(bodyHandler)
             .listen(checkComment, onError: _errorHandler)
           ..serve(core.EndPoints.submitHam, method: 'POST')
-            .transform(new HttpBodyHandler())
+            .transform(bodyHandler)
             .listen(submitHam, onError: _errorHandler)
           ..serve(core.EndPoints.submitSpam, method: 'POST')
-            .transform(new HttpBodyHandler())
+            .transform(bodyHandler)
             .listen(submitSpam, onError: _errorHandler)
           ..serve(core.EndPoints.verifyKey, method: 'POST')
-            .transform(new HttpBodyHandler())
+            .transform(bodyHandler)
             .listen(verifyKey, onError: _errorHandler)
           ..defaultStream
             .listen(_defaultHandler, onError: _errorHandler);
