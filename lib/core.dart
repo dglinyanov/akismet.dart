@@ -8,5 +8,5 @@ part 'src/author.dart';
 part 'src/client.dart';
 part 'src/comment.dart';
 
-/// The version of the current package.
+/// The version number of the package.
 const String VERSION='0.2.1';

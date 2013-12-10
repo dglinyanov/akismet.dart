@@ -35,6 +35,7 @@ void main() {
       return window.alert('You must provide a valid Akismet API key in order to run the unit tests.');
     }
 
+    // Run the tests.
     core.main();
     var client=new Client(apiKey.value, Uri.parse(blog.value))..serviceUrl=Uri.parse(serviceUrl.value);
     new core.ClientTest(client).run();

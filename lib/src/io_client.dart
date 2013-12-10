@@ -11,32 +11,32 @@ class Client extends core.Client {
 
   /// A value indicating whether to use secure requests when querying the service database.
   /// Defaults to `false`.
-  bool secureRequests=false;
+  bool useSecureRequests=false;
 
   /// Checks the specified [comment] against the service database, and returns a value indicating whether it is spam.
   Future<bool> checkComment(core.Comment comment) {
     assert(comment!=null);
-    var endPoint=new Uri(scheme: secureRequests ? 'https' : 'http', host: '$apiKey.rest.akismet.com', path: core.EndPoints.checkComment.toString());
+    var endPoint=new Uri(scheme: useSecureRequests ? 'https' : 'http', host: '$apiKey.rest.akismet.com', path: core.EndPoints.checkComment.pattern);
     return _queryService(endPoint, comment.toJson()).then((result) => result=='true');
   }
 
   /// Submits the specified [comment] that was incorrectly marked as spam but should not have been.
   Future submitHam(core.Comment comment) {
     assert(comment!=null);
-    var endPoint=new Uri(scheme: secureRequests ? 'https' : 'http', host: '$apiKey.rest.akismet.com', path: core.EndPoints.submitHam.toString());
+    var endPoint=new Uri(scheme: useSecureRequests ? 'https' : 'http', host: '$apiKey.rest.akismet.com', path: core.EndPoints.submitHam.pattern);
     return _queryService(endPoint, comment.toJson());
   }
 
   /// Submits the specified [comment] that was not marked as spam but should have been.
   Future submitSpam(core.Comment comment) {
     assert(comment!=null);
-    var endPoint=new Uri(scheme: secureRequests ? 'https' : 'http', host: '$apiKey.rest.akismet.com', path: core.EndPoints.submitSpam.toString());
+    var endPoint=new Uri(scheme: useSecureRequests ? 'https' : 'http', host: '$apiKey.rest.akismet.com', path: core.EndPoints.submitSpam.pattern);
     return _queryService(endPoint, comment.toJson());
   }
 
   /// Checks the [apiKey] against the service database, and returns a value indicating whether it is a valid API key.
   Future<bool> verifyKey() {
-    var endPoint=new Uri(scheme: secureRequests ? 'https' : 'http', host: 'rest.akismet.com', path: core.EndPoints.verifyKey.toString());
+    var endPoint=new Uri(scheme: useSecureRequests ? 'https' : 'http', host: 'rest.akismet.com', path: core.EndPoints.verifyKey.pattern);
     return _queryService(endPoint, { 'key': apiKey }).then((result) => result=='valid');
   }
 

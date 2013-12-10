@@ -67,7 +67,7 @@ class Server {
   ///
   /// The returned [Future] completes when the server is stopped.
   Future stop({ bool force: false }) {
-    return _server.close(force: force).then((_) { _server=null; });
+    return _server==null ? new Future.value() : _server.close(force: force).then((_) { _server=null; });
   }
 
   /// Submits a [core.Comment] that was incorrectly marked as spam but should not have been.
@@ -140,7 +140,7 @@ class Server {
     var userAgent=headers['x-user-agent'];
 
     var client=new Client(apiKey, blog)
-      ..secureRequests=true
+      ..useSecureRequests=true
       ..userAgent=(userAgent.isEmpty ? headers[HttpHeaders.USER_AGENT] : userAgent).first;
 
     // Parse comment values.
