@@ -13,6 +13,9 @@ class Server {
   /// Returns the address that the server is listening on, or `null` if the server is not started.
   InternetAddress get address => _server!=null ? _server.address : null;
 
+  /// TODO
+  String allowedOrigin='*';
+
   /// Returns the port that the server is listening on, or `-1` if the server is not started.
   int get port => _server!=null ? _server.port : -1;
 
@@ -32,35 +35,16 @@ class Server {
   /// The [address] can either be a [String] or an [InternetAddress].
   ///
   /// The returned [Future] completes when the server is started.
-  Future start(address, int port) {
-    return HttpServer.bind(address, port)
-      .then((server) {
-        _server=server;
-
-        var bodyHandler=new HttpBodyHandler();
-        new Router(_server)
-          ..filter(new RegExp(r'^.*$'), _processRequest)
-          ..serve(core.EndPoints.checkComment, method: 'POST')
-            .transform(bodyHandler)
-            .listen(checkComment, onError: _errorHandler)
-          ..serve(core.EndPoints.submitHam, method: 'POST')
-            .transform(bodyHandler)
-            .listen(submitHam, onError: _errorHandler)
-          ..serve(core.EndPoints.submitSpam, method: 'POST')
-            .transform(bodyHandler)
-            .listen(submitSpam, onError: _errorHandler)
-          ..serve(core.EndPoints.verifyKey, method: 'POST')
-            .transform(bodyHandler)
-            .listen(verifyKey, onError: _errorHandler)
-          ..defaultStream
-            .listen(_defaultHandler, onError: _errorHandler);
-      })
-      .catchError((error) {
-        print('An error occurred while starting the server:');
-        print(error);
-        exit(1);
-      });
-  }
+  Future start(address, int port) => HttpServer.bind(address, port)
+    .then((server) {
+      _server=server;
+      _registerRoutes();
+    })
+    .catchError((error) {
+      print('An error occurred while starting the server:');
+      print(error);
+      exit(1);
+    });
 
   /// Permanently stops this server from listening for new connections.
   /// If [force] is `true`, active connections will be closed immediately.
@@ -137,7 +121,7 @@ class Server {
     }
 
     var apiKey=(query.containsKey('key') ? query['key'] : headers.host.split('.').first);
-    var userAgent=headers['x-user-agent'];
+    var userAgent=headers[core.HttpHeaders.USER_AGENT];
 
     var client=new Client(apiKey, blog)
       ..useSecureRequests=true
@@ -162,18 +146,40 @@ class Server {
 
     // Add CORS response headers.
     request.response
-      ..headers.set('Access-Control-Allow-Headers', 'x-requested-with, x-user-agent')
+      ..headers.set('Access-Control-Allow-Headers', '${core.HttpHeaders.REQUESTED_WITH}, ${core.HttpHeaders.USER_AGENT}')
       ..headers.set('Access-Control-Allow-Methods', 'GET, OPTIONS, POST')
-      ..headers.set('Access-Control-Allow-Origin', '*')
-      ..headers.set('Access-Control-Expose-Headers', 'x-akismet-debug-help');
+      ..headers.set('Access-Control-Allow-Origin', allowedOrigin)
+      ..headers.set('Access-Control-Expose-Headers', core.HttpHeaders.AKISMET_DEBUG_HELP);
 
     return new Future.value(true);
   }
 
+  /// Registers the route table.
+  void _registerRoutes() {
+    var bodyHandler=new HttpBodyHandler();
+    new Router(_server)
+      ..filter(new RegExp(r'^.*$'), _processRequest)
+      ..serve(core.EndPoints.checkComment, method: 'POST')
+        .transform(bodyHandler)
+        .listen(checkComment, onError: _errorHandler)
+      ..serve(core.EndPoints.submitHam, method: 'POST')
+        .transform(bodyHandler)
+        .listen(submitHam, onError: _errorHandler)
+      ..serve(core.EndPoints.submitSpam, method: 'POST')
+        .transform(bodyHandler)
+        .listen(submitSpam, onError: _errorHandler)
+      ..serve(core.EndPoints.verifyKey, method: 'POST')
+        .transform(bodyHandler)
+        .listen(verifyKey, onError: _errorHandler)
+      ..defaultStream
+        .listen(_defaultHandler, onError: _errorHandler);
+  }
+
   /// Write the specified [result] to the specified request [response].
-  /// If an [error] message is provided, it is added to the [response] headers as `x-akismet-debug-help`.
+  /// If an [error] message is provided, it is added to the [response] headers as [core.HttpHeaders.AKISMET_DEBUG_HELP] HTTP header.
   void _sendResponse(HttpResponse response, String result, { String error }) {
-    if(error!=null) response.headers.set('x-akismet-debug-help', error);
+    response.headers.contentType=new ContentType('text', 'plain', charset: UTF8.name); // TODO ???????????
+    if(error!=null) response.headers.set(core.HttpHeaders.AKISMET_DEBUG_HELP, error);
     response.write(result);
     response.close();
   }

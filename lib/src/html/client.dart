@@ -49,13 +49,13 @@ class Client extends core.Client {
     fields['key']=apiKey;
 
     var headers={
-      'x-requested-with': 'XMLHttpRequest',
-      'x-user-agent': userAgent
+      core.HttpHeaders.REQUESTED_WITH: 'XMLHttpRequest',
+      core.HttpHeaders.USER_AGENT: userAgent
     };
 
-    return HttpRequest.postFormData(endPoint.toString(), fields, requestHeaders: headers).then((request) {
-      if(request.responseHeaders.containsKey('x-akismet-debug-help'))
-        throw new HttpException(request.responseHeaders['x-akismet-debug-help'], uri: endPoint);
+    return HttpRequest.postFormData(endPoint.toString(), fields, requestHeaders: headers, responseType: 'text').then((request) {
+      if(request.responseHeaders.containsKey(core.HttpHeaders.AKISMET_DEBUG_HELP))
+        throw new HttpException(request.responseHeaders[core.HttpHeaders.AKISMET_DEBUG_HELP], uri: endPoint);
 
       return request.responseText;
     });
