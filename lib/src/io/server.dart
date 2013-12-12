@@ -175,12 +175,12 @@ class Server {
         .listen(_defaultHandler, onError: _errorHandler);
   }
 
-  /// Write the specified [result] to the specified request [response].
-  /// If an [error] message is provided, it is added to the [response] headers as [core.HttpHeaders.AKISMET_DEBUG_HELP] HTTP header.
-  void _sendResponse(HttpResponse response, String result, { String error }) {
-    response.headers.contentType=new ContentType('text', 'plain', charset: UTF8.name); // TODO ???????????
+  /// Write the specified [output] to the specified request [response].
+  /// If an [error] message is provided, it is added to the [response] headers as [core.HttpHeaders.AKISMET_DEBUG_HELP].
+  void _sendResponse(HttpResponse response, String output, { String error }) {
+    response.headers.contentType=new ContentType('text', 'plain', charset: UTF8.name);
     if(error!=null) response.headers.set(core.HttpHeaders.AKISMET_DEBUG_HELP, error);
-    response.write(result);
+    response.write(output);
     response.close();
   }
 }
