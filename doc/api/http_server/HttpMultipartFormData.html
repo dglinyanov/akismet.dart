@@ -1,0 +1,549 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>HttpMultipartFormData abstract class / http_server Library / Dart Documentation</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        </head>
+        <body data-library="http_server" data-type="HttpMultipartFormData">
+        <div class="page">
+        <div class="header">
+          <a href="../index.html"><div class="logo"></div></a>
+          <a href="../index.html">Dart Documentation</a>
+         &rsaquo; <a href="../http_server.html">http_server</a> &rsaquo; <a href="../http_server/HttpMultipartFormData.html">HttpMultipartFormData</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>HttpMultipartFormData</strong>
+          abstract class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p><code>HttpMultipartFormData</code> class used for 'upgrading' a <a class="crossref" href="../mime/MimeMultipart.html">MimeMultipart</a> by
+parsing it as a 'multipart/form-data' part. The following code shows how
+it can be used.</p>
+<p>  HttpServer server = ...;
+  server.listen((request) {</p>
+<pre><code>String boundary = request.headers.contentType.parameters['boundary'];
+request
+    .transform(new MimeMultipartTransformer(boundary))
+    .map(HttpMultipartFormData.parse)
+    .map((HttpMultipartFormData formData) {
+      // form data object available here.
+    });
+</code></pre>
+<p><code>HttpMultipartFormData</code> is a Stream, serving either bytes or decoded
+Strings. Use <a class="crossref" href="../http_server/HttpMultipartFormData.html#isText">isText</a> or <a class="crossref" href="../http_server/HttpMultipartFormData.html#isBinary">isBinary</a> to see what type of data is provided.</p>
+</div>
+<h3>Implements</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_async/Stream.html">Stream</a></span></p>
+<div>
+<h3>Static Methods</h3>
+<div class="method"><h4 id="parse">
+<a href="../http_server/HttpMultipartFormData.html">HttpMultipartFormData</a> <strong>parse</strong>(MimeMultipart multipart, {<a href="http://api.dartlang.org/dart_convert/Encoding.html">Encoding</a> defaultEncoding: UTF8}) <a class="anchor-link" href="#parse"
+              title="Permalink to HttpMultipartFormData.parse">#</a></h4>
+<div class="doc">
+<p>Parse a <a class="crossref" href="../mime/MimeMultipart.html">MimeMultipart</a> and return a <a class="crossref" href="../http_server/HttpMultipartFormData.html">HttpMultipartFormData</a>. If the
+<code>Content-Disposition</code> header is missing or invalid, a <a class="crossref" href="../dart_io/HttpException.html">HttpException</a> is
+thrown.</p>
+<p>If the <a class="crossref" href="../mime/MimeMultipart.html">MimeMultipart</a> is identified as text, and the <code>Content-Type</code>
+header is missing, the data is decoded using 
+<span class="param">defaultEncoding</span>. See more
+information in the
+<a href="http://dev.w3.org/html5/spec-preview/
+constraints.html#multipart-form-data">HTML5 spec</a>.</p>
+</div>
+</div>
+</div>
+<div>
+<h3>Properties</h3>
+<div class="field"><h4 id="contentDisposition">
+final <a href="http://api.dartlang.org/dart_io/HeaderValue.html">HeaderValue</a>         <strong>contentDisposition</strong> <a class="anchor-link"
+            href="#contentDisposition"
+            title="Permalink to HttpMultipartFormData.contentDisposition">#</a>
+        </h4>
+        <div class="doc">
+<p>The parsed <code>Content-Disposition</code> header of the <code>HttpMultipartFormData</code>.
+This field is always present. Use this to extract e.g. name(form field
+name)and filename (client provided name of uploaded file) parameters.</p>
+</div>
+</div>
+<div class="field"><h4 id="contentTransferEncoding">
+final <a href="http://api.dartlang.org/dart_io/HeaderValue.html">HeaderValue</a>         <strong>contentTransferEncoding</strong> <a class="anchor-link"
+            href="#contentTransferEncoding"
+            title="Permalink to HttpMultipartFormData.contentTransferEncoding">#</a>
+        </h4>
+        <div class="doc">
+<p>The parsed <code>Content-Transfer-Encoding</code> header of the
+<code>HttpMultipartFormData</code>. This field is used to determine how to decode
+the data. Returns <code>null</code> if not present.</p>
+</div>
+</div>
+<div class="field"><h4 id="contentType">
+final <a href="http://api.dartlang.org/dart_io/ContentType.html">ContentType</a>         <strong>contentType</strong> <a class="anchor-link"
+            href="#contentType"
+            title="Permalink to HttpMultipartFormData.contentType">#</a>
+        </h4>
+        <div class="doc">
+<p>The parsed <code>Content-Type</code> header of the <code>HttpMultipartFormData</code>.
+Returns <code>null</code> if not present.</p>
+</div>
+</div>
+<div class="field inherited"><h4 id="first">
+final <a href="http://api.dartlang.org/dart_async/Future.html">Future</a>&lt;<a href="../http_server/HttpMultipartFormData.html">T</a>&gt;         <strong>first</strong> <a class="anchor-link"
+            href="#first"
+            title="Permalink to HttpMultipartFormData.first">#</a>
+        </h4>
+        <div class="inherited-from">inherited from <a href="http://api.dartlang.org/dart_async/Stream.html">Stream</a> </div><div class="doc">
+<p>Returns the first element of the stream.</p>
+<p>Stops listening to the stream after the first element has been received.</p>
+<p>If an error event occurs before the first data event, the resulting future
+is completed with that error.</p>
+<p>If this stream is empty (a done event occurs before the first data event),
+the resulting future completes with a <a class="crossref" href="../dart_core/StateError.html">StateError</a>.</p>
+<p>Except for the type of the error, this method is equivalent to
+<code>this.elementAt(0)</code>.</p>
+</div>
+</div>
+<div class="field"><h4 id="isBinary">
+final <a href="http://api.dartlang.org/dart_core/bool.html">bool</a>         <strong>isBinary</strong> <a class="anchor-link"
+            href="#isBinary"
+            title="Permalink to HttpMultipartFormData.isBinary">#</a>
+        </h4>
+        <div class="doc">
+<p>Returns <code>true</code> if the data is raw bytes.</p>
+</div>
+</div>
+<div class="field inherited"><h4 id="isBroadcast">
+final <a href="http://api.dartlang.org/dart_core/bool.html">bool</a>         <strong>isBroadcast</strong> <a class="anchor-link"
+            href="#isBroadcast"
+            title="Permalink to HttpMultipartFormData.isBroadcast">#</a>
+        </h4>
+        <div class="inherited-from">inherited from <a href="http://api.dartlang.org/dart_async/Stream.html">Stream</a> </div><div class="doc">
+<p>Reports whether this stream is a broadcast stream.</p>
+</div>
+</div>
+<div class="field inherited"><h4 id="isEmpty">
+final <a href="http://api.dartlang.org/dart_async/Future.html">Future</a>&lt;<a href="http://api.dartlang.org/dart_core/bool.html">bool</a>&gt;         <strong>isEmpty</strong> <a class="anchor-link"
+            href="#isEmpty"
+            title="Permalink to HttpMultipartFormData.isEmpty">#</a>
+        </h4>
+        <div class="inherited-from">inherited from <a href="http://api.dartlang.org/dart_async/Stream.html">Stream</a> </div><div class="doc">
+<p>Reports whether this stream contains any elements. </p>
+</div>
+</div>
+<div class="field"><h4 id="isText">
+final <a href="http://api.dartlang.org/dart_core/bool.html">bool</a>         <strong>isText</strong> <a class="anchor-link"
+            href="#isText"
+            title="Permalink to HttpMultipartFormData.isText">#</a>
+        </h4>
+        <div class="doc">
+<p>Returns <code>true</code> if the data is decoded as <a class="crossref" href="../dart_core/String.html">String</a>.</p>
+</div>
+</div>
+<div class="field inherited"><h4 id="last">
+final <a href="http://api.dartlang.org/dart_async/Future.html">Future</a>&lt;<a href="../http_server/HttpMultipartFormData.html">T</a>&gt;         <strong>last</strong> <a class="anchor-link"
+            href="#last"
+            title="Permalink to HttpMultipartFormData.last">#</a>
+        </h4>
+        <div class="inherited-from">inherited from <a href="http://api.dartlang.org/dart_async/Stream.html">Stream</a> </div><div class="doc">
+<p>Returns the last element of the stream.</p>
+<p>If an error event occurs before the first data event, the resulting future
+is completed with that error.</p>
+<p>If this stream is empty (a done event occurs before the first data event),
+the resulting future completes with a <a class="crossref" href="../dart_core/StateError.html">StateError</a>.</p>
+</div>
+</div>
+<div class="field inherited"><h4 id="length">
+final <a href="http://api.dartlang.org/dart_async/Future.html">Future</a>&lt;<a href="http://api.dartlang.org/dart_core/int.html">int</a>&gt;         <strong>length</strong> <a class="anchor-link"
+            href="#length"
+            title="Permalink to HttpMultipartFormData.length">#</a>
+        </h4>
+        <div class="inherited-from">inherited from <a href="http://api.dartlang.org/dart_async/Stream.html">Stream</a> </div><div class="doc">
+<p>Counts the elements in the stream. </p>
+</div>
+</div>
+<div class="field inherited"><h4 id="single">
+final <a href="http://api.dartlang.org/dart_async/Future.html">Future</a>&lt;<a href="../http_server/HttpMultipartFormData.html">T</a>&gt;         <strong>single</strong> <a class="anchor-link"
+            href="#single"
+            title="Permalink to HttpMultipartFormData.single">#</a>
+        </h4>
+        <div class="inherited-from">inherited from <a href="http://api.dartlang.org/dart_async/Stream.html">Stream</a> </div><div class="doc">
+<p>Returns the single element.</p>
+<p>If <code>this</code> is empty or has more than one element throws a <a class="crossref" href="../dart_core/StateError.html">StateError</a>.</p>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method inherited"><h4 id="any">
+<a href="http://api.dartlang.org/dart_async/Future.html">Future</a>&lt;<a href="http://api.dartlang.org/dart_core/bool.html">bool</a>&gt; <strong>any</strong>(<a href="http://api.dartlang.org/dart_core/bool.html">bool</a> test(<a href="../http_server/HttpMultipartFormData.html">T</a> element)) <a class="anchor-link" href="#any"
+              title="Permalink to HttpMultipartFormData.any">#</a></h4>
+<div class="inherited-from">inherited from <a href="http://api.dartlang.org/dart_async/Stream.html">Stream</a> </div><div class="doc">
+<p>Checks whether 
+<span class="param">test</span> accepts any element provided by this stream.</p>
+<p>Completes the <a class="crossref" href="../dart_async/Future.html">Future</a> when the answer is known.
+If this stream reports an error, the <a class="crossref" href="../dart_async/Future.html">Future</a> will report that error.</p>
+</div>
+</div>
+<div class="method inherited"><h4 id="asBroadcastStream">
+<a href="http://api.dartlang.org/dart_async/Stream.html">Stream</a>&lt;<a href="../http_server/HttpMultipartFormData.html">T</a>&gt; <strong>asBroadcastStream</strong>({void onListen(<a href="http://api.dartlang.org/dart_async/StreamSubscription.html">StreamSubscription</a>&lt;<a href="../http_server/HttpMultipartFormData.html">T</a>&gt; subscription), void onCancel(<a href="http://api.dartlang.org/dart_async/StreamSubscription.html">StreamSubscription</a>&lt;<a href="../http_server/HttpMultipartFormData.html">T</a>&gt; subscription)}) <a class="anchor-link" href="#asBroadcastStream"
+              title="Permalink to HttpMultipartFormData.asBroadcastStream">#</a></h4>
+<div class="inherited-from">inherited from <a href="http://api.dartlang.org/dart_async/Stream.html">Stream</a> </div><div class="doc">
+<p>Returns a multi-subscription stream that produces the same events as this.</p>
+<p>If this stream is already a broadcast stream, it is returned unmodified.</p>
+<p>If this stream is single-subscription, return a new stream that allows
+multiple subscribers. It will subscribe to this stream when its first
+subscriber is added, and will stay subscribed until this stream ends,
+or a callback cancels the subscription.</p>
+<p>If 
+<span class="param">onListen</span> is provided, it is called with a subscription-like object
+that represents the underlying subscription to this stream. It is
+possible to pause, resume or cancel the subscription during the call
+to 
+<span class="param">onListen</span>. It is not possible to change the event handlers, including
+using <a class="crossref" href="../dart_async/StreamSubscription.html#asFuture">StreamSubscription.asFuture</a>.</p>
+<p>If 
+<span class="param">onCancel</span> is provided, it is called in a similar way to 
+<span class="param">onListen</span>
+when the returned stream stops having listener. If it later gets
+a new listener, the 
+<span class="param">onListen</span> function is called again.</p>
+<p>Use the callbacks, for example, for pausing the underlying subscription
+while having no subscribers to prevent losing events, or canceling the
+subscription when there are no listeners.</p>
+</div>
+</div>
+<div class="method inherited"><h4 id="contains">
+<a href="http://api.dartlang.org/dart_async/Future.html">Future</a>&lt;<a href="http://api.dartlang.org/dart_core/bool.html">bool</a>&gt; <strong>contains</strong>(<a href="http://api.dartlang.org/dart_core/Object.html">Object</a> needle) <a class="anchor-link" href="#contains"
+              title="Permalink to HttpMultipartFormData.contains">#</a></h4>
+<div class="inherited-from">inherited from <a href="http://api.dartlang.org/dart_async/Stream.html">Stream</a> </div><div class="doc">
+<p>Checks whether 
+<span class="param">needle</span> occurs in the elements provided by this stream.</p>
+<p>Completes the <a class="crossref" href="../dart_async/Future.html">Future</a> when the answer is known.
+If this stream reports an error, the <a class="crossref" href="../dart_async/Future.html">Future</a> will report that error.</p>
+</div>
+</div>
+<div class="method inherited"><h4 id="distinct">
+<a href="http://api.dartlang.org/dart_async/Stream.html">Stream</a>&lt;<a href="../http_server/HttpMultipartFormData.html">T</a>&gt; <strong>distinct</strong>([<a href="http://api.dartlang.org/dart_core/bool.html">bool</a> equals(<a href="../http_server/HttpMultipartFormData.html">T</a> previous, <a href="../http_server/HttpMultipartFormData.html">T</a> next)]) <a class="anchor-link" href="#distinct"
+              title="Permalink to HttpMultipartFormData.distinct">#</a></h4>
+<div class="inherited-from">inherited from <a href="http://api.dartlang.org/dart_async/Stream.html">Stream</a> </div><div class="doc">
+<p>Skips data events if they are equal to the previous data event.</p>
+<p>The returned stream provides the same events as this stream, except
+that it never provides two consequtive data events that are equal.</p>
+<p>Equality is determined by the provided 
+<span class="param">equals</span> method. If that is
+omitted, the '==' operator on the last provided data element is used.</p>
+</div>
+</div>
+<div class="method inherited"><h4 id="drain">
+<a href="http://api.dartlang.org/dart_async/Future.html">Future</a> <strong>drain</strong>([futureValue]) <a class="anchor-link" href="#drain"
+              title="Permalink to HttpMultipartFormData.drain">#</a></h4>
+<div class="inherited-from">inherited from <a href="http://api.dartlang.org/dart_async/Stream.html">Stream</a> </div><div class="doc">
+<p>Discards all data on the stream, but signals when it's done or an error
+occured.</p>
+<p>When subscribing using <a class="crossref" href="../dart_async/Stream.html#drain">drain</a>, cancelOnError will be true. This means
+that the future will complete with the first error on the stream and then
+cancel the subscription.</p>
+<p>In case of a <code>done</code> event the future completes with the given
+
+<span class="param">futureValue</span>.</p>
+</div>
+</div>
+<div class="method inherited"><h4 id="elementAt">
+<a href="http://api.dartlang.org/dart_async/Future.html">Future</a>&lt;<a href="../http_server/HttpMultipartFormData.html">T</a>&gt; <strong>elementAt</strong>(<a href="http://api.dartlang.org/dart_core/int.html">int</a> index) <a class="anchor-link" href="#elementAt"
+              title="Permalink to HttpMultipartFormData.elementAt">#</a></h4>
+<div class="inherited-from">inherited from <a href="http://api.dartlang.org/dart_async/Stream.html">Stream</a> </div><div class="doc">
+<p>Returns the value of the 
+<span class="param">index</span>th data event of this stream.</p>
+<p>Stops listening to the stream after a value has been found.</p>
+<p>If an error event occurs before the value is found, the future completes
+with this error.</p>
+<p>If a done event occurs before the value is found, the future completes
+with a <a class="crossref" href="../dart_core/RangeError.html">RangeError</a>.</p>
+</div>
+</div>
+<div class="method inherited"><h4 id="every">
+<a href="http://api.dartlang.org/dart_async/Future.html">Future</a>&lt;<a href="http://api.dartlang.org/dart_core/bool.html">bool</a>&gt; <strong>every</strong>(<a href="http://api.dartlang.org/dart_core/bool.html">bool</a> test(<a href="../http_server/HttpMultipartFormData.html">T</a> element)) <a class="anchor-link" href="#every"
+              title="Permalink to HttpMultipartFormData.every">#</a></h4>
+<div class="inherited-from">inherited from <a href="http://api.dartlang.org/dart_async/Stream.html">Stream</a> </div><div class="doc">
+<p>Checks whether 
+<span class="param">test</span> accepts all elements provided by this stream.</p>
+<p>Completes the <a class="crossref" href="../dart_async/Future.html">Future</a> when the answer is known.
+If this stream reports an error, the <a class="crossref" href="../dart_async/Future.html">Future</a> will report that error.</p>
+</div>
+</div>
+<div class="method inherited"><h4 id="expand">
+<a href="http://api.dartlang.org/dart_async/Stream.html">Stream</a> <strong>expand</strong>(<a href="http://api.dartlang.org/dart_core/Iterable.html">Iterable</a> convert(<a href="../http_server/HttpMultipartFormData.html">T</a> value)) <a class="anchor-link" href="#expand"
+              title="Permalink to HttpMultipartFormData.expand">#</a></h4>
+<div class="inherited-from">inherited from <a href="http://api.dartlang.org/dart_async/Stream.html">Stream</a> </div><div class="doc">
+<p>Creates a new stream from this stream that converts each element
+into zero or more events.</p>
+<p>Each incoming event is converted to an <a class="crossref" href="../dart_core/Iterable.html">Iterable</a> of new events,
+and each of these new events are then sent by the returned stream
+in order.</p>
+</div>
+</div>
+<div class="method inherited"><h4 id="firstWhere">
+<a href="http://api.dartlang.org/dart_async/Future.html">Future</a>&lt;dynamic&gt; <strong>firstWhere</strong>(<a href="http://api.dartlang.org/dart_core/bool.html">bool</a> test(<a href="../http_server/HttpMultipartFormData.html">T</a> element), {<a href="http://api.dartlang.org/dart_core/Object.html">Object</a> defaultValue()}) <a class="anchor-link" href="#firstWhere"
+              title="Permalink to HttpMultipartFormData.firstWhere">#</a></h4>
+<div class="inherited-from">inherited from <a href="http://api.dartlang.org/dart_async/Stream.html">Stream</a> </div><div class="doc">
+<p>Finds the first element of this stream matching 
+<span class="param">test</span>.</p>
+<p>Returns a future that is filled with the first element of this stream
+that 
+<span class="param">test</span> returns true for.</p>
+<p>If no such element is found before this stream is done, and a
+
+<span class="param">defaultValue</span> function is provided, the result of calling 
+<span class="param">defaultValue</span>
+becomes the value of the future.</p>
+<p>If an error occurs, or if this stream ends without finding a match and
+with no 
+<span class="param">defaultValue</span> function provided, the future will receive an
+error.</p>
+</div>
+</div>
+<div class="method inherited"><h4 id="fold">
+<a href="http://api.dartlang.org/dart_async/Future.html">Future</a> <strong>fold</strong>(initialValue, combine(previous, <a href="../http_server/HttpMultipartFormData.html">T</a> element)) <a class="anchor-link" href="#fold"
+              title="Permalink to HttpMultipartFormData.fold">#</a></h4>
+<div class="inherited-from">inherited from <a href="http://api.dartlang.org/dart_async/Stream.html">Stream</a> </div><div class="doc">
+<p>Reduces a sequence of values by repeatedly applying 
+<span class="param">combine</span>. </p>
+</div>
+</div>
+<div class="method inherited"><h4 id="forEach">
+<a href="http://api.dartlang.org/dart_async/Future.html">Future</a> <strong>forEach</strong>(void action(<a href="../http_server/HttpMultipartFormData.html">T</a> element)) <a class="anchor-link" href="#forEach"
+              title="Permalink to HttpMultipartFormData.forEach">#</a></h4>
+<div class="inherited-from">inherited from <a href="http://api.dartlang.org/dart_async/Stream.html">Stream</a> </div><div class="doc">
+<p>Executes 
+<span class="param">action</span> on each data event of the stream.</p>
+<p>Completes the returned <a class="crossref" href="../dart_async/Future.html">Future</a> when all events of the stream
+have been processed. Completes the future with an error if the
+stream has an error event, or if 
+<span class="param">action</span> throws.</p>
+</div>
+</div>
+<div class="method inherited"><h4 id="handleError">
+<a href="http://api.dartlang.org/dart_async/Stream.html">Stream</a>&lt;<a href="../http_server/HttpMultipartFormData.html">T</a>&gt; <strong>handleError</strong>(<a href="http://api.dartlang.org/dart_core/Function.html">Function</a> onError, {<a href="http://api.dartlang.org/dart_core/bool.html">bool</a> test(error)}) <a class="anchor-link" href="#handleError"
+              title="Permalink to HttpMultipartFormData.handleError">#</a></h4>
+<div class="inherited-from">inherited from <a href="http://api.dartlang.org/dart_async/Stream.html">Stream</a> </div><div class="doc">
+<p>Creates a wrapper Stream that intercepts some errors from this stream.</p>
+<p>If this stream sends an error that matches 
+<span class="param">test</span>, then it is intercepted
+by the <code>handle</code> function.</p>
+<p>The 
+<span class="param">onError</span> callback must be of type <code>void onError(error)</code> or
+<code>void onError(error, StackTrace stackTrace)</code>. Depending on the function
+type the the stream either invokes 
+<span class="param">onError</span> with or without a stack
+trace. The stack trace argument might be <code>null</code> if the stream itself
+received an error without stack trace.</p>
+<p>An [AsyncError] [:e:] is matched by a test function if <code>test(e)</code> returns
+true. If 
+<span class="param">test</span> is omitted, every error is considered matching.</p>
+<p>If the error is intercepted, the <code>handle</code> function can decide what to do
+with it. It can throw if it wants to raise a new (or the same) error,
+or simply return to make the stream forget the error.</p>
+<p>If you need to transform an error into a data event, use the more generic
+<a class="crossref" href="../dart_async/Stream.html#transform">Stream.transform</a> to handle the event by writing a data event to
+the output sink</p>
+</div>
+</div>
+<div class="method inherited"><h4 id="join">
+<a href="http://api.dartlang.org/dart_async/Future.html">Future</a>&lt;<a href="http://api.dartlang.org/dart_core/String.html">String</a>&gt; <strong>join</strong>([<a href="http://api.dartlang.org/dart_core/String.html">String</a> separator = ""]) <a class="anchor-link" href="#join"
+              title="Permalink to HttpMultipartFormData.join">#</a></h4>
+<div class="inherited-from">inherited from <a href="http://api.dartlang.org/dart_async/Stream.html">Stream</a> </div><div class="doc">
+<p>Collects string of data events' string representations.</p>
+<p>If 
+<span class="param">separator</span> is provided, it is inserted between any two
+elements.</p>
+<p>Any error in the stream causes the future to complete with that
+error. Otherwise it completes with the collected string when
+the "done" event arrives.</p>
+</div>
+</div>
+<div class="method inherited"><h4 id="lastWhere">
+<a href="http://api.dartlang.org/dart_async/Future.html">Future</a>&lt;dynamic&gt; <strong>lastWhere</strong>(<a href="http://api.dartlang.org/dart_core/bool.html">bool</a> test(<a href="../http_server/HttpMultipartFormData.html">T</a> element), {<a href="http://api.dartlang.org/dart_core/Object.html">Object</a> defaultValue()}) <a class="anchor-link" href="#lastWhere"
+              title="Permalink to HttpMultipartFormData.lastWhere">#</a></h4>
+<div class="inherited-from">inherited from <a href="http://api.dartlang.org/dart_async/Stream.html">Stream</a> </div><div class="doc">
+<p>Finds the last element in this stream matching 
+<span class="param">test</span>.</p>
+<p>As <a class="crossref" href="../dart_async/Stream.html#firstWhere">firstWhere</a>, except that the last matching element is found.
+That means that the result cannot be provided before this stream
+is done.</p>
+</div>
+</div>
+<div class="method inherited"><h4 id="listen">
+abstract <a href="http://api.dartlang.org/dart_async/StreamSubscription.html">StreamSubscription</a>&lt;<a href="../http_server/HttpMultipartFormData.html">T</a>&gt; <strong>listen</strong>(void onData(<a href="../http_server/HttpMultipartFormData.html">T</a> event), {<a href="http://api.dartlang.org/dart_core/Function.html">Function</a> onError, void onDone(), <a href="http://api.dartlang.org/dart_core/bool.html">bool</a> cancelOnError}) <a class="anchor-link" href="#listen"
+              title="Permalink to HttpMultipartFormData.listen">#</a></h4>
+<div class="inherited-from">inherited from <a href="http://api.dartlang.org/dart_async/Stream.html">Stream</a> </div><div class="doc">
+<p>Adds a subscription to this stream.</p>
+<p>On each data event from this stream, the subscriber's 
+<span class="param">onData</span> handler
+is called. If 
+<span class="param">onData</span> is null, nothing happens.</p>
+<p>On errors from this stream, the 
+<span class="param">onError</span> handler is given a
+object describing the error.</p>
+<p>The 
+<span class="param">onError</span> callback must be of type <code>void onError(error)</code> or
+<code>void onError(error, StackTrace stackTrace)</code>. If 
+<span class="param">onError</span> accepts
+two arguments it is called with the stack trace (which could be <code>null</code> if
+the stream itself received an error without stack trace).
+Otherwise it is called with just the error object.</p>
+<p>If this stream closes, the 
+<span class="param">onDone</span> handler is called.</p>
+<p>If 
+<span class="param">cancelOnError</span> is true, the subscription is ended when
+the first error is reported. The default is false.</p>
+</div>
+</div>
+<div class="method inherited"><h4 id="map">
+<a href="http://api.dartlang.org/dart_async/Stream.html">Stream</a> <strong>map</strong>(convert(<a href="../http_server/HttpMultipartFormData.html">T</a> event)) <a class="anchor-link" href="#map"
+              title="Permalink to HttpMultipartFormData.map">#</a></h4>
+<div class="inherited-from">inherited from <a href="http://api.dartlang.org/dart_async/Stream.html">Stream</a> </div><div class="doc">
+<p>Creates a new stream that converts each element of this stream
+to a new value using the 
+<span class="param">convert</span> function.</p>
+</div>
+</div>
+<div class="method inherited"><h4 id="pipe">
+<a href="http://api.dartlang.org/dart_async/Future.html">Future</a> <strong>pipe</strong>(<a href="http://api.dartlang.org/dart_async/StreamConsumer.html">StreamConsumer</a>&lt;<a href="../http_server/HttpMultipartFormData.html">T</a>&gt; streamConsumer) <a class="anchor-link" href="#pipe"
+              title="Permalink to HttpMultipartFormData.pipe">#</a></h4>
+<div class="inherited-from">inherited from <a href="http://api.dartlang.org/dart_async/Stream.html">Stream</a> </div><div class="doc">
+<p>Binds this stream as the input of the provided <a class="crossref" href="../dart_async/StreamConsumer.html">StreamConsumer</a>.</p>
+</div>
+</div>
+<div class="method inherited"><h4 id="reduce">
+<a href="http://api.dartlang.org/dart_async/Future.html">Future</a>&lt;<a href="../http_server/HttpMultipartFormData.html">T</a>&gt; <strong>reduce</strong>(<a href="../http_server/HttpMultipartFormData.html">T</a> combine(<a href="../http_server/HttpMultipartFormData.html">T</a> previous, <a href="../http_server/HttpMultipartFormData.html">T</a> element)) <a class="anchor-link" href="#reduce"
+              title="Permalink to HttpMultipartFormData.reduce">#</a></h4>
+<div class="inherited-from">inherited from <a href="http://api.dartlang.org/dart_async/Stream.html">Stream</a> </div><div class="doc">
+<p>Reduces a sequence of values by repeatedly applying 
+<span class="param">combine</span>.</p>
+</div>
+</div>
+<div class="method inherited"><h4 id="singleWhere">
+<a href="http://api.dartlang.org/dart_async/Future.html">Future</a>&lt;<a href="../http_server/HttpMultipartFormData.html">T</a>&gt; <strong>singleWhere</strong>(<a href="http://api.dartlang.org/dart_core/bool.html">bool</a> test(<a href="../http_server/HttpMultipartFormData.html">T</a> element)) <a class="anchor-link" href="#singleWhere"
+              title="Permalink to HttpMultipartFormData.singleWhere">#</a></h4>
+<div class="inherited-from">inherited from <a href="http://api.dartlang.org/dart_async/Stream.html">Stream</a> </div><div class="doc">
+<p>Finds the single element in this stream matching 
+<span class="param">test</span>.</p>
+<p>Like <code>lastMatch</code>, except that it is an error if more than one
+matching element occurs in the stream.</p>
+</div>
+</div>
+<div class="method inherited"><h4 id="skip">
+<a href="http://api.dartlang.org/dart_async/Stream.html">Stream</a>&lt;<a href="../http_server/HttpMultipartFormData.html">T</a>&gt; <strong>skip</strong>(<a href="http://api.dartlang.org/dart_core/int.html">int</a> count) <a class="anchor-link" href="#skip"
+              title="Permalink to HttpMultipartFormData.skip">#</a></h4>
+<div class="inherited-from">inherited from <a href="http://api.dartlang.org/dart_async/Stream.html">Stream</a> </div><div class="doc">
+<p>Skips the first 
+<span class="param">count</span> data events from this stream.</p>
+</div>
+</div>
+<div class="method inherited"><h4 id="skipWhile">
+<a href="http://api.dartlang.org/dart_async/Stream.html">Stream</a>&lt;<a href="../http_server/HttpMultipartFormData.html">T</a>&gt; <strong>skipWhile</strong>(<a href="http://api.dartlang.org/dart_core/bool.html">bool</a> test(<a href="../http_server/HttpMultipartFormData.html">T</a> element)) <a class="anchor-link" href="#skipWhile"
+              title="Permalink to HttpMultipartFormData.skipWhile">#</a></h4>
+<div class="inherited-from">inherited from <a href="http://api.dartlang.org/dart_async/Stream.html">Stream</a> </div><div class="doc">
+<p>Skip data events from this stream while they are matched by 
+<span class="param">test</span>.</p>
+<p>Error and done events are provided by the returned stream unmodified.</p>
+<p>Starting with the first data event where 
+<span class="param">test</span> returns false for the
+event data, the returned stream will have the same events as this stream.</p>
+</div>
+</div>
+<div class="method inherited"><h4 id="take">
+<a href="http://api.dartlang.org/dart_async/Stream.html">Stream</a>&lt;<a href="../http_server/HttpMultipartFormData.html">T</a>&gt; <strong>take</strong>(<a href="http://api.dartlang.org/dart_core/int.html">int</a> count) <a class="anchor-link" href="#take"
+              title="Permalink to HttpMultipartFormData.take">#</a></h4>
+<div class="inherited-from">inherited from <a href="http://api.dartlang.org/dart_async/Stream.html">Stream</a> </div><div class="doc">
+<p>Provides at most the first <code>n</code> values of this stream.</p>
+<p>Forwards the first <code>n</code> data events of this stream, and all error
+events, to the returned stream, and ends with a done event.</p>
+<p>If this stream produces fewer than 
+<span class="param">count</span> values before it's done,
+so will the returned stream.</p>
+</div>
+</div>
+<div class="method inherited"><h4 id="takeWhile">
+<a href="http://api.dartlang.org/dart_async/Stream.html">Stream</a>&lt;<a href="../http_server/HttpMultipartFormData.html">T</a>&gt; <strong>takeWhile</strong>(<a href="http://api.dartlang.org/dart_core/bool.html">bool</a> test(<a href="../http_server/HttpMultipartFormData.html">T</a> element)) <a class="anchor-link" href="#takeWhile"
+              title="Permalink to HttpMultipartFormData.takeWhile">#</a></h4>
+<div class="inherited-from">inherited from <a href="http://api.dartlang.org/dart_async/Stream.html">Stream</a> </div><div class="doc">
+<p>Forwards data events while 
+<span class="param">test</span> is successful.</p>
+<p>The returned stream provides the same events as this stream as long
+as 
+<span class="param">test</span> returns <code>true</code> for the event data. The stream is done
+when either this stream is done, or when this stream first provides
+a value that 
+<span class="param">test</span> doesn't accept.</p>
+</div>
+</div>
+<div class="method inherited"><h4 id="toList">
+<a href="http://api.dartlang.org/dart_async/Future.html">Future</a>&lt;<a href="http://api.dartlang.org/dart_core/List.html">List</a>&lt;<a href="../http_server/HttpMultipartFormData.html">T</a>&gt;&gt; <strong>toList</strong>() <a class="anchor-link" href="#toList"
+              title="Permalink to HttpMultipartFormData.toList">#</a></h4>
+<div class="inherited-from">inherited from <a href="http://api.dartlang.org/dart_async/Stream.html">Stream</a> </div><div class="doc">
+<p>Collects the data of this stream in a <a class="crossref" href="../dart_core/List.html">List</a>. </p>
+</div>
+</div>
+<div class="method inherited"><h4 id="toSet">
+<a href="http://api.dartlang.org/dart_async/Future.html">Future</a>&lt;<a href="http://api.dartlang.org/dart_core/Set.html">Set</a>&lt;<a href="../http_server/HttpMultipartFormData.html">T</a>&gt;&gt; <strong>toSet</strong>() <a class="anchor-link" href="#toSet"
+              title="Permalink to HttpMultipartFormData.toSet">#</a></h4>
+<div class="inherited-from">inherited from <a href="http://api.dartlang.org/dart_async/Stream.html">Stream</a> </div><div class="doc">
+<p>Collects the data of this stream in a <a class="crossref" href="../dart_core/Set.html">Set</a>. </p>
+</div>
+</div>
+<div class="method inherited"><h4 id="transform">
+<a href="http://api.dartlang.org/dart_async/Stream.html">Stream</a> <strong>transform</strong>(<a href="http://api.dartlang.org/dart_async/StreamTransformer.html">StreamTransformer</a>&lt;<a href="../http_server/HttpMultipartFormData.html">T</a>, dynamic&gt; streamTransformer) <a class="anchor-link" href="#transform"
+              title="Permalink to HttpMultipartFormData.transform">#</a></h4>
+<div class="inherited-from">inherited from <a href="http://api.dartlang.org/dart_async/Stream.html">Stream</a> </div><div class="doc">
+<p>Chains this stream as the input of the provided <a class="crossref" href="../dart_async/StreamTransformer.html">StreamTransformer</a>.</p>
+<p>Returns the result of <code>streamTransformer.bind</code> itself.</p>
+</div>
+</div>
+<div class="method"><h4 id="value">
+abstract <a href="http://api.dartlang.org/dart_core/String.html">String</a> <strong>value</strong>(<a href="http://api.dartlang.org/dart_core/String.html">String</a> name) <a class="anchor-link" href="#value"
+              title="Permalink to HttpMultipartFormData.value">#</a></h4>
+<div class="doc">
+<p>Returns the value for the header named 
+<span class="param">name</span>. If there
+is no header with the provided name, <code>null</code> will be returned.</p>
+<p>Use this method to index other headers available in the original
+<a class="crossref" href="../mime/MimeMultipart.html">MimeMultipart</a>.</p>
+</div>
+</div>
+<div class="method inherited"><h4 id="where">
+<a href="http://api.dartlang.org/dart_async/Stream.html">Stream</a>&lt;<a href="../http_server/HttpMultipartFormData.html">T</a>&gt; <strong>where</strong>(<a href="http://api.dartlang.org/dart_core/bool.html">bool</a> test(<a href="../http_server/HttpMultipartFormData.html">T</a> event)) <a class="anchor-link" href="#where"
+              title="Permalink to HttpMultipartFormData.where">#</a></h4>
+<div class="inherited-from">inherited from <a href="http://api.dartlang.org/dart_async/Stream.html">Stream</a> </div><div class="doc">
+<p>Creates a new stream from this stream that discards some data events.</p>
+<p>The new stream sends the same error and done events as this stream,
+but it only sends the data events that satisfy the 
+<span class="param">test</span>.</p>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-12-20 17:45:23.083</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

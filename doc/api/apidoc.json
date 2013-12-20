@@ -1,0 +1,1 @@
+{"name":"dart:","description":"Dart System Libraries","libraries":[{"refId":"akismet.core"},{"refId":"akismet.html"},{"refId":"akismet.io"},{"name":"package:http_server/http_server.dart","refId":"http_server"},{"name":"file:///repo/akismet.dart/packages/route/url_pattern.dart","refId":"route.url_pattern"}],"revision":"0","location":"0","dependencies":[]}
