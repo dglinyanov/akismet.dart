@@ -7,6 +7,9 @@ Prevent comment spam using [Akismet](https://akismet.com) service, in [Dart](htt
 * [Submit spam](https://akismet.com/development/api/#submit-spam): submits a comment that was not marked as spam but should have been.
 * [Submit ham](https://akismet.com/development/api/#submit-ham): submits a comment that was incorrectly marked as spam but should not have been.
 
+## Documentation
+* [API Reference](http://dev.belin.io/akismet.dart/api)
+
 ## Installing via [Pub](https://pub.dartlang.org)
 
 ### 1. Depend on it
