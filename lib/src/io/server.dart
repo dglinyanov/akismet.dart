@@ -13,9 +13,6 @@ class Server {
   /// Returns the address that the server is listening on, or `null` if the server is not started.
   InternetAddress get address => _server!=null ? _server.address : null;
 
-  /// TODO
-  String allowedOrigin='*';
-
   /// Returns the port that the server is listening on, or `-1` if the server is not started.
   int get port => _server!=null ? _server.port : -1;
 
@@ -148,7 +145,7 @@ class Server {
     request.response
       ..headers.set('Access-Control-Allow-Headers', '${core.HttpHeaders.REQUESTED_WITH}, ${core.HttpHeaders.USER_AGENT}')
       ..headers.set('Access-Control-Allow-Methods', 'GET, OPTIONS, POST')
-      ..headers.set('Access-Control-Allow-Origin', allowedOrigin)
+      ..headers.set('Access-Control-Allow-Origin', '*')
       ..headers.set('Access-Control-Expose-Headers', core.HttpHeaders.AKISMET_DEBUG_HELP);
 
     return new Future.value(true);

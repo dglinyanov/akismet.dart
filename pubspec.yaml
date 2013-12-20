@@ -2,8 +2,7 @@ name: akismet
 version: 0.2.1
 author: Cédric Belin <cedric@belin.io>
 description: Prevent comment spam using Akismet service (https://akismet.com).
-homepage: http://akismet.belin.io
-documentation: http://akismet.belin.io/api
+homepage: https://github.com/cedx/akismet.dart
 environment:
   sdk: '>=1.0.0 <2.0.0'
 dependencies:

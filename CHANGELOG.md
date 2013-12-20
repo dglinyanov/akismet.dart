@@ -2,7 +2,7 @@
 This file contains highlights of what changes on each version of the [Akismet.dart](https://pub.dartlang.org/packages/akismet) package.  
 
 #### Version 0.2.1
-* Added new properties and methods to `Server` class: `allowedOrigin`... TODO
+* Added new properties and methods to `Server` class.
 * Added utility scripts in `tool` folder.
 * Changed the package layout.
 * Breaking change: renamed `Server.secureRequests` property to `useSecureRequests`.
