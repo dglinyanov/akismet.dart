@@ -11,14 +11,17 @@ import 'package:unittest/html_enhanced_config.dart';
 void main() {
   useHtmlEnhancedConfiguration();
 
+  // Initialize tooltips.
   var $=context['jQuery'].apply;
-  $([ '[data-toggle="tooltip"]' ]).callMethod('tooltip');
+  $([ '[data-toggle=tooltip]' ]).callMethod('tooltip');
 
+  // Register button handlers.
   var button=(querySelector('#btn-submit') as ButtonElement);
   button.onClick.listen((event) {
     event.preventDefault();
-    for(var element in querySelectorAll('#form-unit-tests > .form-group')) element.classes.remove('has-error');
+    querySelectorAll('#form-unit-tests > .form-group').classes.remove('has-error');
 
+    // Validate the user input.
     var blog=(querySelector('#blog-url') as InputElement);
     blog.value=blog.value.trim();
     if(blog.value.length==0) blog.value='http://akismet.belin.io';
