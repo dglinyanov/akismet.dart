@@ -1,1 +1,10 @@
 * text=auto
+
+.gitattributes text
+.gitignore text
+*.dart text
+*.md text
+*.txt text
+
+*.ico binary
+*.png binary
