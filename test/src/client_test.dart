@@ -16,7 +16,7 @@ class ClientTest {
   ClientTest(this._client) {
     var author=new Author('Akismet.dart')
       ..ipAddress='192.168.0.1'
-      ..url=Uri.parse('https://github.com/cedx/akismet.dart')
+      ..url=Uri.parse('http://dev.belin.io/akismet.dart')
       ..userAgent='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9) AppleWebKit/537.71 (KHTML, like Gecko) Version/7.0 Safari/537.71';
 
     _ham=new Comment('I\'m testing out the Service API.', author)

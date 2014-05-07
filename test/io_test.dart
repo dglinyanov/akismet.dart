@@ -17,7 +17,7 @@ void main(List<String> arguments) {
 
   core.main();
 
-  var blog=Uri.parse(arguments.length>1 ? arguments[1] : 'https://github.com/cedx/akismet.dart');
+  var blog=Uri.parse(arguments.length>1 ? arguments[1] : 'http://dev.belin.io/akismet.dart');
   var client=new Client(arguments.first, blog);
   new core.ClientTest(client).run();
 }
