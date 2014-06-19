@@ -1,0 +1,160 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>VirtualDirectory class / http_server Library / Dart Documentation</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        </head>
+        <body data-library="http_server" data-type="VirtualDirectory">
+        <div class="page">
+        <div class="header">
+          <a href="../index.html"><div class="logo"></div></a>
+          <a href="../index.html">Dart Documentation</a>
+         &rsaquo; <a href="../http_server.html">http_server</a> &rsaquo; <a href="../http_server/VirtualDirectory.html">VirtualDirectory</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>VirtualDirectory</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>A <a class="crossref" href="../http_server/VirtualDirectory.html">VirtualDirectory</a> can serve files and directory-listing from a root path,
+to <a class="crossref" href="../dart_io/HttpRequest.html">HttpRequest</a>s.</p>
+<p>The <a class="crossref" href="../http_server/VirtualDirectory.html">VirtualDirectory</a> providing secure handling of request uris and
+file-system links, correct mime-types and custom error pages.</p>
+</div>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="">
+new <strong>VirtualDirectory</strong>(<a href="http://api.dartlang.org/dart_core/String.html">String</a> root) <a class="anchor-link" href="#"
+              title="Permalink to VirtualDirectory.VirtualDirectory">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Creates a new <a class="crossref" href="../dart_core/Object.html">Object</a> instance.</p>
+<p><a class="crossref" href="../dart_core/Object.html">Object</a> instances have no meaningful state, and are only useful
+through their identity. An <a class="crossref" href="../dart_core/Object.html">Object</a> instance is equal to itself
+only.</p>
+<div class="docs-inherited-from">docs inherited from <a href="http://api.dartlang.org/dart_core/Object.html">Object</a> </div></div>
+</div>
+</div>
+</div>
+<div>
+<h3>Properties</h3>
+<div class="field"><h4 id="allowDirectoryListing">
+<a href="http://api.dartlang.org/dart_core/bool.html">bool</a>         <strong>allowDirectoryListing</strong> <a class="anchor-link"
+            href="#allowDirectoryListing"
+            title="Permalink to VirtualDirectory.allowDirectoryListing">#</a>
+        </h4>
+        <div class="doc">
+<p>Set or get if the <a class="crossref" href="../http_server/VirtualDirectory.html">VirtualDirectory</a> should list the content of
+directories.</p>
+</div>
+</div>
+<div class="method"><h4 id="directoryHandler=">
+void <strong>set directoryHandler</strong>(void callback(<a href="http://api.dartlang.org/dart_io/Directory.html">Directory</a> dir, <a href="http://api.dartlang.org/dart_io/HttpRequest.html">HttpRequest</a> request)) <a class="anchor-link" href="#directoryHandler="
+              title="Permalink to VirtualDirectory.set directoryHandler">#</a></h4>
+<div class="doc">
+<p>Set the 
+<span class="param">callback</span> to override the default directory listing. The
+
+<span class="param">callback</span> will be called with the <a class="crossref" href="../dart_io/Directory.html">Directory</a> to be listed and the
+<a class="crossref" href="../dart_io/HttpRequest.html">HttpRequest</a>.</p>
+</div>
+</div>
+<div class="method"><h4 id="errorPageHandler=">
+void <strong>set errorPageHandler</strong>(void callback(<a href="http://api.dartlang.org/dart_io/HttpRequest.html">HttpRequest</a> request)) <a class="anchor-link" href="#errorPageHandler="
+              title="Permalink to VirtualDirectory.set errorPageHandler">#</a></h4>
+<div class="doc">
+<p>Set the 
+<span class="param">callback</span> to override the error page handler. When 
+<span class="param">callback</span> is
+invoked, the <code>statusCode</code> property of the response is set.</p>
+</div>
+</div>
+<div class="field"><h4 id="followLinks">
+<a href="http://api.dartlang.org/dart_core/bool.html">bool</a>         <strong>followLinks</strong> <a class="anchor-link"
+            href="#followLinks"
+            title="Permalink to VirtualDirectory.followLinks">#</a>
+        </h4>
+        <div class="doc">
+<p>Set or get if the <a class="crossref" href="../http_server/VirtualDirectory.html">VirtualDirectory</a> should follow links, that point
+to other resources within the <a class="crossref" href="../http_server/VirtualDirectory.html#root">root</a> directory.</p>
+</div>
+</div>
+<div class="field"><h4 id="jailRoot">
+<a href="http://api.dartlang.org/dart_core/bool.html">bool</a>         <strong>jailRoot</strong> <a class="anchor-link"
+            href="#jailRoot"
+            title="Permalink to VirtualDirectory.jailRoot">#</a>
+        </h4>
+        <div class="doc">
+<p>Set or get if the <a class="crossref" href="../http_server/VirtualDirectory.html">VirtualDirectory</a> should jail the root. When the root is
+not jailed, links can be followed to outside the <a class="crossref" href="../http_server/VirtualDirectory.html#root">root</a> directory.</p>
+</div>
+</div>
+<div class="field"><h4 id="root">
+final <a href="http://api.dartlang.org/dart_core/String.html">String</a>         <strong>root</strong> <a class="anchor-link"
+            href="#root"
+            title="Permalink to VirtualDirectory.root">#</a>
+        </h4>
+        <div class="doc">
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="serve">
+void <strong>serve</strong>(<a href="http://api.dartlang.org/dart_async/Stream.html">Stream</a>&lt;<a href="http://api.dartlang.org/dart_io/HttpRequest.html">HttpRequest</a>&gt; requests) <a class="anchor-link" href="#serve"
+              title="Permalink to VirtualDirectory.serve">#</a></h4>
+<div class="doc">
+<p>Serve a <a class="crossref" href="../dart_async/Stream.html">Stream</a> of <a class="crossref" href="../dart_io/HttpRequest.html">HttpRequest</a>s, in this <a class="crossref" href="../http_server/VirtualDirectory.html">VirtualDirectory</a>.</p>
+</div>
+</div>
+<div class="method"><h4 id="serveFile">
+void <strong>serveFile</strong>(<a href="http://api.dartlang.org/dart_io/File.html">File</a> file, <a href="http://api.dartlang.org/dart_io/HttpRequest.html">HttpRequest</a> request) <a class="anchor-link" href="#serveFile"
+              title="Permalink to VirtualDirectory.serveFile">#</a></h4>
+<div class="doc">
+<p>Serve the content of 
+<span class="param">file</span> to 
+<span class="param">request</span>.</p>
+<p>This is usefull when e.g. overriding <a class="crossref" href="../http_server/VirtualDirectory.html#directoryHandler=">directoryHandler</a> to redirect to
+some index file.</p>
+<p>In the request contains the [HttpStatus.IF_MODIFIED_SINCE] header,
+<a class="crossref" href="../http_server/VirtualDirectory.html#serveFile">serveFile</a> will send a <code>HttpStatus.NOT_MODIFIED</code> response if the file
+was not changed.</p>
+<p>Note that if it was unabled to read from 
+<span class="param">file</span>, the 
+<span class="param">request</span>s response
+is closed with error-code <code>HttpStatus.NOT_FOUND</code>.</p>
+</div>
+</div>
+<div class="method"><h4 id="serveRequest">
+void <strong>serveRequest</strong>(<a href="http://api.dartlang.org/dart_io/HttpRequest.html">HttpRequest</a> request) <a class="anchor-link" href="#serveRequest"
+              title="Permalink to VirtualDirectory.serveRequest">#</a></h4>
+<div class="doc">
+<p>Serve a single <a class="crossref" href="../dart_io/HttpRequest.html">HttpRequest</a>, in this <a class="crossref" href="../http_server/VirtualDirectory.html">VirtualDirectory</a>.</p>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-12-20 17:45:23.030</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

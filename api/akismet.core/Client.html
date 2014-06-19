@@ -1,0 +1,132 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>Client abstract class / akismet.core Library / Dart Documentation</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        </head>
+        <body data-library="akismet.core" data-type="Client">
+        <div class="page">
+        <div class="header">
+          <a href="../index.html"><div class="logo"></div></a>
+          <a href="../index.html">Dart Documentation</a>
+         &rsaquo; <a href="../akismet.core.html">akismet.core</a> &rsaquo; <a href="../akismet.core/Client.html">Client</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>Client</strong>
+          abstract class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Provides the base class for clients that submit comments to <a href="https://akismet.com">Akismet</a> service.</p>
+</div>
+<h3>Subclasses</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../akismet.html/Client.html">Client</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../akismet.io/Client.html">Client</a></span></p>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="">
+new <strong>Client</strong>(<a href="http://api.dartlang.org/dart_core/String.html">String</a> apiKey, <a href="http://api.dartlang.org/dart_core/Uri.html">Uri</a> blog) <a class="anchor-link" href="#"
+              title="Permalink to Client.Client">#</a></h4>
+<div class="doc">
+<p>Creates a new <a class="crossref" href="../akismet.core/Client.html">Client</a> with the specified Akismet 
+<span class="param">apiKey</span> and 
+<span class="param">blog</span> URL.</p>
+</div>
+</div>
+</div>
+<div>
+<h3>Properties</h3>
+<div class="field"><h4 id="apiKey">
+final <a href="http://api.dartlang.org/dart_core/String.html">String</a>         <strong>apiKey</strong> <a class="anchor-link"
+            href="#apiKey"
+            title="Permalink to Client.apiKey">#</a>
+        </h4>
+        <div class="doc">
+<p>The Akismet API key.</p>
+</div>
+</div>
+<div class="field"><h4 id="blog">
+final <a href="http://api.dartlang.org/dart_core/Uri.html">Uri</a>         <strong>blog</strong> <a class="anchor-link"
+            href="#blog"
+            title="Permalink to Client.blog">#</a>
+        </h4>
+        <div class="doc">
+<p>The front page or home URL of the instance making requests.</p>
+</div>
+</div>
+<div class="field"><h4 id="userAgent">
+<a href="http://api.dartlang.org/dart_core/String.html">String</a>         <strong>userAgent</strong> <a class="anchor-link"
+            href="#userAgent"
+            title="Permalink to Client.userAgent">#</a>
+        </h4>
+        <div class="doc">
+<p>The user agent string to use when making requests.
+If possible, the user agent string should always have the following format: <code>Application Name/Version | Plugin Name/Version</code>.</p>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="checkComment">
+abstract <a href="http://api.dartlang.org/dart_async/Future.html">Future</a>&lt;<a href="http://api.dartlang.org/dart_core/bool.html">bool</a>&gt; <strong>checkComment</strong>(<a href="../akismet.core/Comment.html">Comment</a> comment) <a class="anchor-link" href="#checkComment"
+              title="Permalink to Client.checkComment">#</a></h4>
+<div class="doc">
+<p>Checks the specified 
+<span class="param">comment</span> against the service database, and returns a value indicating whether it is spam.</p>
+</div>
+</div>
+<div class="method"><h4 id="submitHam">
+abstract <a href="http://api.dartlang.org/dart_async/Future.html">Future</a> <strong>submitHam</strong>(<a href="../akismet.core/Comment.html">Comment</a> comment) <a class="anchor-link" href="#submitHam"
+              title="Permalink to Client.submitHam">#</a></h4>
+<div class="doc">
+<p>Submits the specified 
+<span class="param">comment</span> that was incorrectly marked as spam but should not have been.</p>
+</div>
+</div>
+<div class="method"><h4 id="submitSpam">
+abstract <a href="http://api.dartlang.org/dart_async/Future.html">Future</a> <strong>submitSpam</strong>(<a href="../akismet.core/Comment.html">Comment</a> comment) <a class="anchor-link" href="#submitSpam"
+              title="Permalink to Client.submitSpam">#</a></h4>
+<div class="doc">
+<p>Submits the specified 
+<span class="param">comment</span> that was not marked as spam but should have been.</p>
+</div>
+</div>
+<div class="method"><h4 id="toString">
+<a href="http://api.dartlang.org/dart_core/String.html">String</a> <strong>toString</strong>() <a class="anchor-link" href="#toString"
+              title="Permalink to Client.toString">#</a></h4>
+<div class="doc">
+<p>Returns a string representation of this object.</p>
+</div>
+</div>
+<div class="method"><h4 id="verifyKey">
+abstract <a href="http://api.dartlang.org/dart_async/Future.html">Future</a>&lt;<a href="http://api.dartlang.org/dart_core/bool.html">bool</a>&gt; <strong>verifyKey</strong>() <a class="anchor-link" href="#verifyKey"
+              title="Permalink to Client.verifyKey">#</a></h4>
+<div class="doc">
+<p>Checks the <a class="crossref" href="../akismet.core/Client.html#apiKey">apiKey</a> against the service database, and returns a value indicating whether it is a valid API key.</p>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-12-20 17:45:22.933</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

@@ -1,0 +1,264 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>UrlPattern class / route.url_pattern Library / Dart Documentation</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        </head>
+        <body data-library="route.url_pattern" data-type="UrlPattern">
+        <div class="page">
+        <div class="header">
+          <a href="../index.html"><div class="logo"></div></a>
+          <a href="../index.html">Dart Documentation</a>
+         &rsaquo; <a href="../route.url_pattern.html">route.url_pattern</a> &rsaquo; <a href="../route.url_pattern/UrlPattern.html">UrlPattern</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>UrlPattern</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>A pattern, similar to a <a class="crossref" href="../dart_core/RegExp.html">RegExp</a>, that is designed to match against URL
+paths, easily return groups of a matched path, and produce paths from a list
+of arguments - this is they are "reversible".</p>
+<p><code>UrlPattern</code>s also allow for handling plain paths and URLs with a fragment in
+a uniform way so that they can be used for client side routing on browsers
+that support <code>window.history.pushState</code> as well as legacy browsers.</p>
+<p>The differences from a plain <a class="crossref" href="../dart_core/RegExp.html">RegExp</a>:
+ * All non-literals must be in a group. Everything outside of a groups is
+   considered a literal and special regex characters are escaped.
+ * There can only be one match, and it must match the entire string. <code>^</code> and
+   <code>$</code> are automatically added to the beginning and end of the pattern,
+   respectively.
+ * The pattern must be un-ambiguous, eg <code>(.*)(.*)</code> is not allowed at the
+   top-level.
+ * The hash character (#) matches both '#' and '/', and it is only allowed
+   once per pattern. Hashes are not allowed inside groups.</p>
+<p>With those differences, <code>UrlPatterns</code> become much more useful for routing
+URLs and constructing them, both on the client and server. The best practice
+is to define your application's set of URLs in a shared library.</p>
+<p>urls.dart:</p>
+<pre><code>library urls;
+
+final articleUrl = new UrlPattern(r'/articles/(\d+)');
+</code></pre>
+<p>server.dart:</p>
+<pre><code>import 'urls.dart';
+import 'package:route/server.dart';
+
+main() {
+  var server = new HttpServer();
+  server.addRequestHandler(matchesUrl(articleUrl), serveArticle);
+}
+
+serveArcticle(req, res) {
+  var articleId = articleUrl.parse(req.path)[0];
+  // ...
+}
+</code></pre>
+<h2>Use with older browsers</h2>
+<p>Since '#' matches both '#' and '/' it can be used in as a path separator
+between the "static" portion of your URL and the "dynamic" portion. The
+dynamic portion would be the part that change when a user navigates to new
+data that's loaded dynamically rather than loading a new page.</p>
+<p>In newer browsers that support <code>History.pushState()</code> an entire new path can
+be pushed into the location bar without reloading the page. In older browsers
+only the fragment can be changed without reloading the page. By matching both
+characters, and by producing either, we can use pushState in newer browsers,
+but fall back to fragments when necessary.</p>
+<p>Examples:</p>
+<pre><code>var pattern = new UrlPattern(r'/app#profile/(\d+)');
+pattern.matches('/app/profile/1234'); // true
+pattern.matches('/app#profile/1234'); // true
+pattern.reverse([1234], useFragment: true); // /app#profile/1234
+pattern.reverse([1234], useFragment: false); // /app/profile/1234
+</code></pre>
+</div>
+<h3>Implements</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_core/Pattern.html">Pattern</a></span></p>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="">
+new <strong>UrlPattern</strong>(<a href="http://api.dartlang.org/dart_core/String.html">String</a> pattern) <a class="anchor-link" href="#"
+              title="Permalink to UrlPattern.UrlPattern">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Creates a new <a class="crossref" href="../dart_core/Object.html">Object</a> instance.</p>
+<p><a class="crossref" href="../dart_core/Object.html">Object</a> instances have no meaningful state, and are only useful
+through their identity. An <a class="crossref" href="../dart_core/Object.html">Object</a> instance is equal to itself
+only.</p>
+<div class="docs-inherited-from">docs inherited from <a href="http://api.dartlang.org/dart_core/Object.html">Object</a> </div></div>
+</div>
+</div>
+</div>
+<div>
+<h3>Properties</h3>
+<div class="field"><h4 id="hashCode">
+final <a href="http://api.dartlang.org/dart_core/int.html">int</a>         <strong>hashCode</strong> <a class="anchor-link"
+            href="#hashCode"
+            title="Permalink to UrlPattern.hashCode">#</a>
+        </h4>
+        <div class="doc">
+<div class="inherited">
+<p>Get a hash code for this object.</p>
+<p>All objects have hash codes. Hash codes are guaranteed to be the
+same for objects that are equal when compared using the equality
+operator <code>==</code>. Other than that there are no guarantees about
+the hash codes. They will not be consistent between runs and
+there are no distribution guarantees.</p>
+<p>If a subclass overrides <a class="crossref" href="../route.url_pattern/UrlPattern.html#hashCode">hashCode</a> it should override the
+equality operator as well to maintain consistency.</p>
+<div class="docs-inherited-from">docs inherited from <a href="http://api.dartlang.org/dart_core/Object.html">Object</a> </div></div>
+</div>
+</div>
+<div class="field"><h4 id="pattern">
+final <a href="http://api.dartlang.org/dart_core/String.html">String</a>         <strong>pattern</strong> <a class="anchor-link"
+            href="#pattern"
+            title="Permalink to UrlPattern.pattern">#</a>
+        </h4>
+        <div class="doc">
+</div>
+</div>
+<div class="field"><h4 id="regex">
+final <a href="http://api.dartlang.org/dart_core/RegExp.html">RegExp</a>         <strong>regex</strong> <a class="anchor-link"
+            href="#regex"
+            title="Permalink to UrlPattern.regex">#</a>
+        </h4>
+        <div class="doc">
+</div>
+</div>
+</div>
+<div>
+<h3>Operators</h3>
+<div class="method"><h4 id="==">
+<a href="http://api.dartlang.org/dart_core/bool.html">bool</a> <strong>operator ==</strong>(other) <a class="anchor-link" href="#=="
+              title="Permalink to UrlPattern.operator ==">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>The equality operator.</p>
+<p>The default behavior for all <a class="crossref" href="../dart_core/Object.html">Object</a>s is to return true if and
+only if <code>this</code> and 
+<span class="param">other</span> are the same object.</p>
+<p>Override this method to specify a different equality relation on
+a class. The overriding method must still be an equivalence relation.
+That is, it must be:</p><ul><li>
+<p>Total: It must return a boolean for all arguments. It should never throw
+   or return <code>null</code>.</p></li><li>
+<p>Reflexive: For all objects <code>o</code>, <code>o == o</code> must be true.</p></li><li>
+<p>Symmetric: For all objects <code>o1</code> and <code>o2</code>, <code>o1 == o2</code> and <code>o2 == o1</code> must
+   either both be true, or both be false.</p></li><li>
+<p>Transitive: For all objects <code>o1</code>, <code>o2</code>, and <code>o3</code>, if <code>o1 == o2</code> and
+   <code>o2 == o3</code> are true, then <code>o1 == o3</code> must be true.</p></li></ul>
+<p>The method should also be consistent over time, so equality of two objects
+should not change over time, or at least only change if one of the objects
+was modified.</p>
+<p>If a subclass overrides the equality operator it should override
+the <a class="crossref" href="../route.url_pattern/UrlPattern.html#hashCode">hashCode</a> method as well to maintain consistency.</p>
+<div class="docs-inherited-from">docs inherited from <a href="http://api.dartlang.org/dart_core/Object.html">Object</a> </div></div>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="allMatches">
+<a href="http://api.dartlang.org/dart_core/Iterable.html">Iterable</a>&lt;<a href="http://api.dartlang.org/dart_core/Match.html">Match</a>&gt; <strong>allMatches</strong>(<a href="http://api.dartlang.org/dart_core/String.html">String</a> str) <a class="anchor-link" href="#allMatches"
+              title="Permalink to UrlPattern.allMatches">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Match this pattern against the string repeatedly.</p>
+<p>The iterable will contain all the non-overlapping matches of the
+pattern on the string, ordered by start index.</p>
+<p>The matches are found by repeatedly finding the first match
+of the pattern on the string, starting from the end of the previous
+match, and initially starting from index zero.</p>
+<p>If the pattern matches the empty string at some point, the next
+match is found by starting at the previous match's end plus one.</p>
+<div class="docs-inherited-from">docs inherited from <a href="http://api.dartlang.org/dart_core/Pattern.html">Pattern</a> </div></div>
+</div>
+</div>
+<div class="method"><h4 id="matchAsPrefix">
+<a href="http://api.dartlang.org/dart_core/Match.html">Match</a> <strong>matchAsPrefix</strong>(<a href="http://api.dartlang.org/dart_core/String.html">String</a> string, [<a href="http://api.dartlang.org/dart_core/int.html">int</a> start = 0]) <a class="anchor-link" href="#matchAsPrefix"
+              title="Permalink to UrlPattern.matchAsPrefix">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Match this pattern against the start of string.</p>
+<p>If 
+<span class="param">start</span> is provided, it must be an integer in the range <code>0</code> ..
+<code>string.length</code>. In that case, this patten is tested against the
+string at the 
+<span class="param">start</span> position. That is, a match is returned if the
+pattern can match a part of the string starting from position 
+<span class="param">start</span>.</p>
+<div class="docs-inherited-from">docs inherited from <a href="http://api.dartlang.org/dart_core/Pattern.html">Pattern</a> </div></div>
+</div>
+</div>
+<div class="method"><h4 id="matches">
+<a href="http://api.dartlang.org/dart_core/bool.html">bool</a> <strong>matches</strong>(<a href="http://api.dartlang.org/dart_core/String.html">String</a> str) <a class="anchor-link" href="#matches"
+              title="Permalink to UrlPattern.matches">#</a></h4>
+<div class="doc">
+<p>Returns true if this pattern matches <code>path</code>.</p>
+</div>
+</div>
+<div class="method"><h4 id="matchesNonFragment">
+<a href="http://api.dartlang.org/dart_core/bool.html">bool</a> <strong>matchesNonFragment</strong>(<a href="http://api.dartlang.org/dart_core/String.html">String</a> str) <a class="anchor-link" href="#matchesNonFragment"
+              title="Permalink to UrlPattern.matchesNonFragment">#</a></h4>
+<div class="doc">
+<p>Returns true if the path portion of the pattern, the part before the
+fragment, matches 
+<span class="param">str</span>. If there is no fragment in the pattern, this is
+equivalent to calling <a class="crossref" href="../route.url_pattern/UrlPattern.html#matches">matches</a>.</p>
+<p>This method is most useful on a server that is serving the HTML of a
+single page app. Clients that don't support pushState will not send the
+fragment to the server, so the server will have to handle just the path
+part.</p>
+</div>
+</div>
+<div class="method"><h4 id="parse">
+<a href="http://api.dartlang.org/dart_core/List.html">List</a>&lt;<a href="http://api.dartlang.org/dart_core/String.html">String</a>&gt; <strong>parse</strong>(<a href="http://api.dartlang.org/dart_core/String.html">String</a> path) <a class="anchor-link" href="#parse"
+              title="Permalink to UrlPattern.parse">#</a></h4>
+<div class="doc">
+<p>Parses a URL path, or path + fragment, and returns the group matches.
+Throws <a class="crossref" href="../dart_core/ArgumentError.html">ArgumentError</a> if this pattern does not match 
+<span class="param">path</span>.</p>
+</div>
+</div>
+<div class="method"><h4 id="reverse">
+<a href="http://api.dartlang.org/dart_core/String.html">String</a> <strong>reverse</strong>(<a href="http://api.dartlang.org/dart_core/Iterable.html">Iterable</a> args, {<a href="http://api.dartlang.org/dart_core/bool.html">bool</a> useFragment: false}) <a class="anchor-link" href="#reverse"
+              title="Permalink to UrlPattern.reverse">#</a></h4>
+<div class="doc">
+</div>
+</div>
+<div class="method"><h4 id="toString">
+<a href="http://api.dartlang.org/dart_core/String.html">String</a> <strong>toString</strong>() <a class="anchor-link" href="#toString"
+              title="Permalink to UrlPattern.toString">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Returns a string representation of this object.</p>
+<div class="docs-inherited-from">docs inherited from <a href="http://api.dartlang.org/dart_core/Object.html">Object</a> </div></div>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-12-20 17:45:23.143</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

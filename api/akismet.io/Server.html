@@ -1,0 +1,141 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>Server class / akismet.io Library / Dart Documentation</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        </head>
+        <body data-library="akismet.io" data-type="Server">
+        <div class="page">
+        <div class="header">
+          <a href="../index.html"><div class="logo"></div></a>
+          <a href="../index.html">Dart Documentation</a>
+         &rsaquo; <a href="../akismet.io.html">akismet.io</a> &rsaquo; <a href="../akismet.io/Server.html">Server</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>Server</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>An HTTP server that acts as a proxy between HTML clients and <a href="https://akismet.com">Akismet</a> service.</p>
+</div>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="">
+new <strong>Server</strong>([<a href="http://api.dartlang.org/dart_core/Uri.html">Uri</a> redirectUrl]) <a class="anchor-link" href="#"
+              title="Permalink to Server.Server">#</a></h4>
+<div class="doc">
+<p>Creates a new <a class="crossref" href="../akismet.io/Server.html">Server</a>.
+If a 
+<span class="param">redirectUrl</span> is specified, the user is redirected to it when a request is unhandled.</p>
+</div>
+</div>
+</div>
+<div>
+<h3>Properties</h3>
+<div class="field"><h4 id="address">
+final <a href="http://api.dartlang.org/dart_io/InternetAddress.html">InternetAddress</a>         <strong>address</strong> <a class="anchor-link"
+            href="#address"
+            title="Permalink to Server.address">#</a>
+        </h4>
+        <div class="doc">
+<p>Returns the address that the server is listening on, or <code>null</code> if the server is not started.</p>
+</div>
+</div>
+<div class="field"><h4 id="port">
+final <a href="http://api.dartlang.org/dart_core/int.html">int</a>         <strong>port</strong> <a class="anchor-link"
+            href="#port"
+            title="Permalink to Server.port">#</a>
+        </h4>
+        <div class="doc">
+<p>Returns the port that the server is listening on, or <code>-1</code> if the server is not started.</p>
+</div>
+</div>
+<div class="field"><h4 id="redirectUrl">
+final <a href="http://api.dartlang.org/dart_core/Uri.html">Uri</a>         <strong>redirectUrl</strong> <a class="anchor-link"
+            href="#redirectUrl"
+            title="Permalink to Server.redirectUrl">#</a>
+        </h4>
+        <div class="doc">
+<p>The <a class="crossref" href="../dart_core/Uri.html">Uri</a> to redirect the user when a request is unhandled.
+If this property is <code>null</code>, a 404 status code is sent instead of redirecting.</p>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="checkComment">
+void <strong>checkComment</strong>(<a href="../http_server/HttpRequestBody.html">HttpRequestBody</a> body) <a class="anchor-link" href="#checkComment"
+              title="Permalink to Server.checkComment">#</a></h4>
+<div class="doc">
+<p>Checks a <a class="crossref" href="../akismet.core/Comment.html">core.Comment</a> against the service database, and prints a value indicating whether it is spam.</p>
+</div>
+</div>
+<div class="method"><h4 id="start">
+<a href="http://api.dartlang.org/dart_async/Future.html">Future</a> <strong>start</strong>(address, <a href="http://api.dartlang.org/dart_core/int.html">int</a> port) <a class="anchor-link" href="#start"
+              title="Permalink to Server.start">#</a></h4>
+<div class="doc">
+<p>Starts listening for HTTP requests on the specified 
+<span class="param">address</span> and 
+<span class="param">port</span>.
+The 
+<span class="param">address</span> can either be a <a class="crossref" href="../dart_core/String.html">String</a> or an <a class="crossref" href="../dart_io/InternetAddress.html">InternetAddress</a>.</p>
+<p>The returned <a class="crossref" href="../dart_async/Future.html">Future</a> completes when the server is started.</p>
+</div>
+</div>
+<div class="method"><h4 id="stop">
+<a href="http://api.dartlang.org/dart_async/Future.html">Future</a> <strong>stop</strong>({<a href="http://api.dartlang.org/dart_core/bool.html">bool</a> force: false}) <a class="anchor-link" href="#stop"
+              title="Permalink to Server.stop">#</a></h4>
+<div class="doc">
+<p>Permanently stops this server from listening for new connections.
+If 
+<span class="param">force</span> is <code>true</code>, active connections will be closed immediately.</p>
+<p>The returned <a class="crossref" href="../dart_async/Future.html">Future</a> completes when the server is stopped.</p>
+</div>
+</div>
+<div class="method"><h4 id="submitHam">
+void <strong>submitHam</strong>(<a href="../http_server/HttpRequestBody.html">HttpRequestBody</a> body) <a class="anchor-link" href="#submitHam"
+              title="Permalink to Server.submitHam">#</a></h4>
+<div class="doc">
+<p>Submits a <a class="crossref" href="../akismet.core/Comment.html">core.Comment</a> that was incorrectly marked as spam but should not have been.</p>
+</div>
+</div>
+<div class="method"><h4 id="submitSpam">
+void <strong>submitSpam</strong>(<a href="../http_server/HttpRequestBody.html">HttpRequestBody</a> body) <a class="anchor-link" href="#submitSpam"
+              title="Permalink to Server.submitSpam">#</a></h4>
+<div class="doc">
+<p>Submits a <a class="crossref" href="../akismet.core/Comment.html">core.Comment</a> that was not marked as spam but should have been.</p>
+</div>
+</div>
+<div class="method"><h4 id="verifyKey">
+void <strong>verifyKey</strong>(<a href="../http_server/HttpRequestBody.html">HttpRequestBody</a> body) <a class="anchor-link" href="#verifyKey"
+              title="Permalink to Server.verifyKey">#</a></h4>
+<div class="doc">
+<p>Checks an API key against the service database, and prints a value indicating whether it is a valid key.</p>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-12-20 17:45:22.993</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        
