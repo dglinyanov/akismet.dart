@@ -1,5 +1,3 @@
-#!/usr/bin/env dart
-
 /// Command line interface.
 library akismet.cli;
 
