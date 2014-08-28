@@ -74,6 +74,6 @@ class ClientTest {
 
     client=classMirror.newInstance(constructor, [ '', Uri.parse('mailto:viagra-test-123@fake-url.com') ]).reflectee;
     if(serviceUrl!=null) client.serviceUrl=serviceUrl;
-    expect(client.verifyKey(), throws);
+    expect(client.verifyKey(), completion(isFalse));
   }
 }
